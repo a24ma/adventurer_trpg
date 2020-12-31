@@ -1,407 +1,65 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>01.キャラクター作成.md</title>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-
-<style>
-/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-body {
-	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
-	font-size: var(--vscode-markdown-font-size, 14px);
-	padding: 0 26px;
-	line-height: var(--vscode-markdown-line-height, 22px);
-	word-wrap: break-word;
-}
-
-#code-csp-warning {
-	position: fixed;
-	top: 0;
-	right: 0;
-	color: white;
-	margin: 16px;
-	text-align: center;
-	font-size: 12px;
-	font-family: sans-serif;
-	background-color:#444444;
-	cursor: pointer;
-	padding: 6px;
-	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
-}
-
-#code-csp-warning:hover {
-	text-decoration: none;
-	background-color:#007acc;
-	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
-}
-
-body.scrollBeyondLastLine {
-	margin-bottom: calc(100vh - 22px);
-}
-
-body.showEditorSelection .code-line {
-	position: relative;
-}
-
-body.showEditorSelection .code-active-line:before,
-body.showEditorSelection .code-line:hover:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 0;
-	left: -12px;
-	height: 100%;
-}
-
-body.showEditorSelection li.code-active-line:before,
-body.showEditorSelection li.code-line:hover:before {
-	left: -30px;
-}
-
-.vscode-light.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.15);
-}
-
-.vscode-light.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.40);
-}
-
-.vscode-light.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-dark.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.4);
-}
-
-.vscode-dark.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.60);
-}
-
-.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-high-contrast.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 160, 0, 0.7);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 160, 0, 1);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-	outline: 1px solid -webkit-focus-ring-color;
-	outline-offset: -1px;
-}
-
-hr {
-	border: 0;
-	height: 2px;
-	border-bottom: 2px solid;
-}
-
-h1 {
-	padding-bottom: 0.3em;
-	line-height: 1.2;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-h1, h2, h3 {
-	font-weight: normal;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-table > thead > tr > th {
-	text-align: left;
-	border-bottom: 1px solid;
-}
-
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
-}
-
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
-}
-
-blockquote {
-	margin: 0 7px 0 5px;
-	padding: 0 16px 0 10px;
-	border-left-width: 5px;
-	border-left-style: solid;
-}
-
-code {
-	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-	font-size: 1em;
-	line-height: 1.357em;
-}
-
-body.wordWrap pre {
-	white-space: pre-wrap;
-}
-
-pre:not(.hljs),
-pre.hljs code > div {
-	padding: 16px;
-	border-radius: 3px;
-	overflow: auto;
-}
-
-pre code {
-	color: var(--vscode-editor-foreground);
-	tab-size: 4;
-}
-
-/** Theming */
-
-.vscode-light pre {
-	background-color: rgba(220, 220, 220, 0.4);
-}
-
-.vscode-dark pre {
-	background-color: rgba(10, 10, 10, 0.4);
-}
-
-.vscode-high-contrast pre {
-	background-color: rgb(0, 0, 0);
-}
-
-.vscode-high-contrast h1 {
-	border-color: rgb(0, 0, 0);
-}
-
-.vscode-light table > thead > tr > th {
-	border-color: rgba(0, 0, 0, 0.69);
-}
-
-.vscode-dark table > thead > tr > th {
-	border-color: rgba(255, 255, 255, 0.69);
-}
-
-.vscode-light h1,
-.vscode-light hr,
-.vscode-light table > tbody > tr + tr > td {
-	border-color: rgba(0, 0, 0, 0.18);
-}
-
-.vscode-dark h1,
-.vscode-dark hr,
-.vscode-dark table > tbody > tr + tr > td {
-	border-color: rgba(255, 255, 255, 0.18);
-}
-
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>1&period; &midast;&midast;&#x540D;&#x524D;&#x203B;&midast;&midast;</title>
+        <style>
 </style>
-
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
-/* Tomorrow Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-
-/* Tomorrow Comment */
-.hljs-comment,
-.hljs-quote {
-	color: #8e908c;
-}
-
-/* Tomorrow Red */
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-regexp,
-.hljs-deletion {
-	color: #c82829;
-}
-
-/* Tomorrow Orange */
-.hljs-number,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-	color: #f5871f;
-}
-
-/* Tomorrow Yellow */
-.hljs-attribute {
-	color: #eab700;
-}
-
-/* Tomorrow Green */
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-	color: #718c00;
-}
-
-/* Tomorrow Blue */
-.hljs-title,
-.hljs-section {
-	color: #4271ae;
-}
-
-/* Tomorrow Purple */
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #8959a8;
-}
-
-.hljs {
-	display: block;
-	overflow-x: auto;
-	color: #4d4d4c;
-	padding: 0.5em;
-}
-
-.hljs-emphasis {
-	font-style: italic;
-}
-
-.hljs-strong {
-	font-weight: bold;
-}
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
-
-<style>
-/*
- * Markdown PDF CSS
- */
-
- body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
-	padding: 0 12px;
-}
-
-pre {
-	background-color: #f8f8f8;
-	border: 1px solid #cccccc;
-	border-radius: 3px;
-	overflow-x: auto;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-}
-
-pre:not(.hljs) {
-	padding: 23px;
-	line-height: 19px;
-}
-
-blockquote {
-	background: rgba(127, 127, 127, 0.1);
-	border-color: rgba(0, 122, 204, 0.5);
-}
-
-.emoji {
-	height: 1.4em;
-}
-
-code {
-	font-size: 14px;
-	line-height: 19px;
-}
-
-/* for inline code */
-:not(pre):not(.hljs) > code {
-	color: #C9AE75; /* Change the old color so it seems less like an error */
-	font-size: inherit;
-}
-
-/* Page Break : use <div class="page"/> to insert page break
--------------------------------------------------------- */
-.page {
-	page-break-after: always;
-}
-
-</style>
-
-<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-</head>
-<body>
-  <script>
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
-          ? 'dark'
-          : 'default'
-    });
-  </script>
-<h1 id="gm%E3%81%8B%E3%82%89%E3%81%AE%E5%BE%A1%E6%8C%A8%E6%8B%B6">GMからの御挨拶</h1>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="gmからの御挨拶">GMからの御挨拶</h1>
 <p>「ようこそ、「冒険者組合」へ！私は「ガイド=メッセンジャー」です。皆さんからは「ガイドさん」とか「メッセンジャー」とか呼ばれてます。でも一番多いのはやっぱりこれですね。<strong>「GM」</strong>！私はこの冒険者組合で、冒険者の皆さんにお仕事をご提供させていただいています。さて、それでは冒険者組合にご登録を・・・。」</p>
 <p>「え？『ここはどこで、自分は何故ここにいるのか？』ですか？ここは「冒険者組合」。数多の世界を繋ぐ、世界と世界の狭間にある不思議な空間です。ここにはいろんな世界から「冒険者」の皆さんが集まり、いろんな世界で困っている人たちから届いた依頼をお仕事として受け、刺激的な冒険の旅へと出掛けるのです。そして、あなたは特別な存在として選ばれ、この冒険者組合にご招待されました。」</p>
 <p>「はい？『自分は刺激的な冒険なんて求めてないし、冒険者になるつもりもない』？なるほどなるほど、皆さん初めはそう言うんですよ。まあまあ、とりあえず登録するだけ登録して、試しに騙されたと思って一つお仕事を受けて行って下さい。一度冒険する楽しみを覚えたら、きっと病みつきになると思いますよ。それに、例えここで仕事を受けなくても、あなたほどの存在でしたら、きっと「周囲」があなたを放っておかないでしょうから
 。さて、それでは冒険者組合にご登録をしますね？あなたの事をいろいろと教えてください。」</p>
-<h1 id="%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E4%BD%9C%E6%88%90%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%AB">キャラクター作成のルール</h1>
+<h1 id="キャラクター作成のルール">キャラクター作成のルール</h1>
 <p>PC（プレイヤーキャラクター）は、ゲーム上でのプレイヤーの分身です。キャラクター作成時、原則として「ランク」は「ルビー」、「レベル」は１で作成します。</p>
 <p>キャラクターを作成する時に、設定しなければならなものは、以下の通りです（「※」が付いているものは、後から変更する事は出来ません）。</p>
-<h3 id="1-%E5%90%8D%E5%89%8D%E2%80%BB">1. <strong>名前※</strong></h3>
+<h3 id="1-名前">1. <strong>名前※</strong></h3>
 <p>キャラクターの名前です。</p>
-<h3 id="2-%E6%80%A7%E5%88%A5%E2%80%BB">2. <strong>性別※</strong></h3>
+<h3 id="2-性別">2. <strong>性別※</strong></h3>
 <p>キャラクターの性別です。</p>
-<h3 id="3-%E5%B1%9E%E6%80%A7%E2%80%BB">3. <strong>属性※</strong></h3>
+<h3 id="3-属性">3. <strong>属性※</strong></h3>
 <p>キャラクターに宿る属性です。</p>
 <p>「光」「火」「土」「闇」「水」「風」の中から一つを選びます。</p>
-<h3 id="4-%E7%A8%AE%E6%97%8F%E2%80%BB">4. <strong>種族※</strong></h3>
+<h3 id="4-種族">4. <strong>種族※</strong></h3>
 <p>キャラクターの種族です。</p>
 <p>主に「力」に関係します。</p>
-<h3 id="5-%E8%81%B7%E6%A5%AD">5. <strong>職業</strong></h3>
+<h3 id="5-職業">5. <strong>職業</strong></h3>
 <p>キャラクターが普段どのような仕事をしているのかを設定します。</p>
 <p>決められない場合は、とりあえず「冒険者」と書き込んでおきましょう。</p>
-<h3 id="6-%E5%8B%A2%E5%8A%9B">6. <strong>勢力</strong></h3>
+<h3 id="6-勢力">6. <strong>勢力</strong></h3>
 <p>キャラクターの所属している勢力です。</p>
 <p>主に「知恵」に関係します。</p>
-<h3 id="7-%E5%8A%9B%E3%83%BB%E7%9F%A5%E6%81%B5%E3%83%BB%E5%BF%83">7. <strong>力・知恵・心</strong></h3>
-<p>キャラクターの能力です。</p>
+<h3 id="7-ポテンシャル">7. <strong>ポテンシャル</strong></h3>
+<p>キャラクターの能力です。「ポテンシャル」には「力」「知恵」「心」があります。</p>
 <p>セッション中、常に効果を発揮します。</p>
-<h3 id="8-%E6%8A%80%E8%83%BD">8. <strong>技能</strong></h3>
+<h3 id="8-技能">8. <strong>技能</strong></h3>
 <p>キャラクターが得意とする技能です。</p>
-<h3 id="9-%E3%82%B9%E3%82%AD%E3%83%AB%E3%83%BB%E9%AD%94%E6%B3%95">9. <strong>スキル・魔法</strong></h3>
+<h3 id="9-スキル魔法">9. <strong>スキル・魔法</strong></h3>
 <p>キャラクターの使用できる特技です。</p>
 <p>セッション中、使用することで効果を発揮します。</p>
-<h3 id="10%E6%AD%A6%E5%99%A8">10.<strong>武器</strong></h3>
+<h3 id="10武器">10.<strong>武器</strong></h3>
 <p>キャラクターが使用する武器です。</p>
-<h3 id="11%E5%88%87%E3%82%8A%E6%9C%AD">11.<strong>切り札</strong></h3>
+<h3 id="11切り札">11.<strong>切り札</strong></h3>
 <p>キャラクターが持つ異能の力です。</p>
-<h1 id="%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E5%88%9D%E6%9C%9F%E8%83%BD%E5%8A%9B">キャラクターの初期能力</h1>
+<h1 id="キャラクターの初期能力">キャラクターの初期能力</h1>
 <p>レベル１のキャラクターの初期能力は以下の通りです。</p>
 <ul>
 <li>生命力：60</li>
@@ -409,15 +67,15 @@ code {
 <li>力・知恵・心：各１ずつ</li>
 <li>技能：８つ</li>
 </ul>
-<h1 id="%E7%94%9F%E5%91%BD%E5%8A%9B%E3%81%A8%E3%82%BB%E3%83%B3%E3%82%B9">生命力とセンス</h1>
+<h1 id="生命力とセンス">生命力とセンス</h1>
 <p>全てのキャラクターには、必ず「生命力」と「センス」が設定されています。</p>
 <p>「生命力」は、文字通りキャラクターの生命力を表します。この数値が減少し0になると、「行動不能」と呼ばれる状態になります。「生命力」はダメージを受けたりすることで減少します。「生命力」は「スキル・魔法」、「アイテム」、回復判定などにより回復できます。ただし、「生命力」の上限を超えて回復する事はありません。</p>
 <p>また、キャラクターによっては「装甲」が存在します。「装甲」は耐久値が設定されていて、物理ダメージを受けた時「生命力」の代わりに耐久値を減少させ、「生命力」の減少を防ぎます。魔法ダメージ、特殊ダメージを防ぐ事は出来ません。「装甲」の耐久値が0になると、「生命力」の減少を防ぐことは出来なくなりますが、「装甲」そのものは消滅しません（「アイテム」の「守りの護符」でのみ「装甲」が存在している場合、「守りの護符」が消滅した時「装甲」も消滅します）。「装甲」は「スキル・魔法」により耐久値を修復できます。ただし、「装甲」の耐久値の上限を超えて修復する事はできません。</p>
 <p>「センス」は、キャラクターが「スキル・魔法」を修得する事ができる容量です。「スキル・魔法」にはコストが設定されていて、「スキル・魔法」を修得する時、修得した「スキル・魔法」のコストの合計値が、キャラクターの「センス」の数値を上回ってはいけません。</p>
 <p>「スキル・魔法」を修得するとき、キャラクターの「センス」の数値ぴったりになるよう修得しなければならない訳ではありません。この時、修得した「スキル・魔法」のコストの合計値と、キャラクターの「センス」の数値の差分を、「余剰コスト」として記載しておきましょう。「余剰コスト」は、戦闘中に使用できるコストに追加されます。</p>
-<h1 id="%E5%8B%A2%E5%8A%9B%E3%81%AE%E8%A8%AD%E5%AE%9A">勢力の設定</h1>
+<h1 id="勢力の設定">勢力の設定</h1>
 <p>冒険者たちは自らの思想や目的などにより、集まって勢力を築いています。現在存在している六つの勢力を簡単にご紹介します。キャラクターの作成時にどの勢力に所属するかを選びましょう。</p>
-<h2 id="%E6%9E%9C%E3%81%A6%E7%84%A1%E3%81%8D%E6%97%85%E5%9B%A3">【果て無き旅団】</h2>
+<h2 id="果て無き旅団">【果て無き旅団】</h2>
 <p>旅をすることを愛した、或いは退屈な日常を抜け出すために冒険者になった者の集まりです。彼らは束縛されることを嫌い、自由を好みます。彼らの多くは「旅をするために」旅をしており、彼らの旅に終わりが来る事は無いのです。</p>
 <ul>
 <li>目的
@@ -428,7 +86,7 @@ code {
 </ul>
 </li>
 </ul>
-<h2 id="%E7%99%BD%E9%8A%80%E3%81%AE%E6%A3%AE">【白銀の森】</h2>
+<h2 id="白銀の森">【白銀の森】</h2>
 <p>自然と共に生きる者達が集まった勢力です。「森」とありますが、彼らの生活圏は森のみではなく、海や山、砂漠なども含まれ、文明によって開拓されていない場所は、おおよそ彼らの縄張りです。</p>
 <ul>
 <li>目的
@@ -439,7 +97,7 @@ code {
 </ul>
 </li>
 </ul>
-<h2 id="%E9%97%87%E3%81%AB%E8%A0%A2%E3%81%8F%E8%80%85">【闇に蠢く者】</h2>
+<h2 id="闇に蠢く者">【闇に蠢く者】</h2>
 <p>周囲からの迫害を受け、孤立してしまった者達の集まりです。ヤクザやギャングなど、反社会的な組織に所属している者が多い彼らですが、その内情は「弱きを助け、悪しきを挫く」を座右の銘とする、仕事人たちです。</p>
 <ul>
 <li>目的
@@ -450,7 +108,7 @@ code {
 </ul>
 </li>
 </ul>
-<h2 id="%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%E3%82%A6%E3%82%A3%E3%83%83%E3%83%81%E3%82%A2%E3%82%AB%E3%83%87%E3%83%9F%E3%83%BC">【ワールドウィッチアカデミー】</h2>
+<h2 id="ワールドウィッチアカデミー">【ワールドウィッチアカデミー】</h2>
 <p>様々な世界から、魔法や知識を求めて集まった勢力です。「ウィッチ」が意味する「魔女」とは「異能の力を持つ者」であり、必ずしも女性を指すわけではないようです。彼らはお互いに師弟関係のようなものを築き、一つの学校のような集団を作っています。</p>
 <ul>
 <li>目的
@@ -461,7 +119,7 @@ code {
 </ul>
 </li>
 </ul>
-<h2 id="%E9%8B%BC%E9%89%84%E3%81%AE%E9%A8%8E%E5%A3%AB%E5%9B%A3">【鋼鉄の騎士団】</h2>
+<h2 id="鋼鉄の騎士団">【鋼鉄の騎士団】</h2>
 <p>科学文明が発達した世界の住人が建てた勢力です。彼らは自分達の文明の発展にしか興味が無く、他の勢力には基本的に無関心のようです。また、彼らの中には体の一部を機械化している者も多く、中には機械そのものな方もいるようです。</p>
 <ul>
 <li>目的
@@ -472,7 +130,7 @@ code {
 </ul>
 </li>
 </ul>
-<h2 id="%E5%85%AB%E7%99%BE%E4%B8%87%E4%BF%A1%E4%BB%B0%E5%8D%94%E4%BC%9A">【八百万信仰協会】</h2>
+<h2 id="八百万信仰協会">【八百万信仰協会】</h2>
 <p>様々な宗教団体の複合組織です。勢力としては一つですが、勢力内では「他の宗教とは不干渉」の暗黙の了解が築かれており、勢力内でも仲間意識と言うものはあまりないようです。</p>
 <ul>
 <li>目的
@@ -483,11 +141,11 @@ code {
 </ul>
 </li>
 </ul>
-<h1 id="%E7%A8%AE%E6%97%8F%E3%81%A8%E6%B7%B7%E8%A1%80%E3%81%AE%E8%A8%AD%E5%AE%9A">種族と混血の設定</h1>
+<h1 id="種族と混血の設定">種族と混血の設定</h1>
 <p>PCは基本的に種族は「人間」で作成しますが、キャラクターに人間とは別の異種族の血が流れていることにしても構いません。</p>
 <p>この時、キャラクターは「混血」となり、六つの血族の中から一つと【異形】を一つ選択します（【異形】は後から変更することができません。よく考えて選びましょう）。また、選択した血族から、そのキャラクターにふさわしいと思う種族の名前を、種族の欄に書き込みましょう。</p>
 <p>「混血」のキャラクターは、技能の代用を行う時「技能表」の中央にある、「混血」のマスをまたぐことができます。また、キャラクターを「混血」にしない場合は、「技能表」の中央にある、「混血」のマスをマジックなどで塗りつぶしましょう。</p>
-<h2 id="%E5%8F%A4%E3%81%AE%E8%A1%80%E6%97%8F">【古の血族】</h2>
+<h2 id="古の血族">【古の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -504,7 +162,7 @@ code {
 </li>
 </ul>
 <p>太古から存在する強大な種族。ドラゴンなどと呼ばれる種が相当する。</p>
-<h2 id="%E7%8D%A3%E3%81%AE%E8%A1%80%E6%97%8F">【獣の血族】</h2>
+<h2 id="獣の血族">【獣の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -520,7 +178,7 @@ code {
 </li>
 </ul>
 <p>獣や鳥、爬虫類から魚まで自然に生きる種族。犬や猫やトカゲなどが相当する。</p>
-<h2 id="%E6%AD%BB%E3%81%AE%E8%A1%80%E6%97%8F">【死の血族】</h2>
+<h2 id="死の血族">【死の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -536,7 +194,7 @@ code {
 </li>
 </ul>
 <p>いわゆるアンデッドと呼ばれる種族。ゾンビやヴァンパイアなどが相当する。</p>
-<h2 id="%E9%AD%94%E3%81%AE%E8%A1%80%E6%97%8F">【魔の血族】</h2>
+<h2 id="魔の血族">【魔の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -552,7 +210,7 @@ code {
 </li>
 </ul>
 <p>魔族、妖怪と呼ばれる種族。悪魔や鬼などが相当する。</p>
-<h2 id="%E7%84%A1%E3%81%AE%E8%A1%80%E6%97%8F">【無の血族】</h2>
+<h2 id="無の血族">【無の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -568,7 +226,7 @@ code {
 </li>
 </ul>
 <p>血族と言うよりは機械など無機物の種族。アンドロイドや付喪神などが相当する。</p>
-<h2 id="%E7%A5%9E%E3%81%AE%E8%A1%80%E6%97%8F">【神の血族】</h2>
+<h2 id="神の血族">【神の血族】</h2>
 <ul>
 <li>
 <p>条件</p>
@@ -584,48 +242,61 @@ code {
 </li>
 </ul>
 <p>神の眷属や神聖な種族。天使や妖精などが相当する。</p>
-<h1 id="%E7%95%B0%E5%BD%A2">【異形】</h1>
-<h2 id="%E9%9A%A0%E3%81%9B%E3%81%AC%E7%95%B0%E5%BD%A2">「隠せぬ異形」</h2>
+<h1 id="異形">【異形】</h1>
+<h2 id="隠せぬ異形">「隠せぬ異形」</h2>
 <ul>
 <li>情報判定に-1の修正が加わる。</li>
 </ul>
 <p>あなたに流れている異形の血は、いかなる手段を持っても隠しきれるものではない。</p>
-<h2 id="%E6%88%A6%E9%97%98%E7%8B%82">「戦闘狂」</h2>
+<h2 id="戦闘狂">「戦闘狂」</h2>
 <ul>
 <li>戦闘が発生すると、その戦闘に必ず参加しなければならない。</li>
 </ul>
 <p>あなたに流れている異形の血が、あなたに「戦え」と囁きかけてくる。</p>
-<h2 id="%E6%B4%BB%E5%8B%95%E6%99%82%E9%96%93">「活動時間」</h2>
+<h2 id="活動時間">「活動時間」</h2>
 <ul>
 <li>この【異形】を選択した時、「日中」か「夜中」のどちらかを指定する。指定した時間帯がそのキャラクターの「活動時間」になり、指定しなかった時間帯ではあらゆる判定に-1の修正が加わる。</li>
 </ul>
 <p>あなたに流れている異形の血が、日の光や、夜の闇の中で活動することを許さない。</p>
-<h2 id="%E4%B8%80%E5%8C%B9%E7%8B%BC">「一匹狼」</h2>
+<h2 id="一匹狼">「一匹狼」</h2>
 <ul>
 <li>判定補助を行うことも、判定補助を受けることもできない。</li>
 </ul>
 <p>あなたに流れている異形の血は、誰かと慣れ合う事を許さない。</p>
-<h2 id="%E6%84%9F%E6%83%85%E3%81%AE%E6%AC%A0%E8%90%BD">「感情の欠落」</h2>
+<h2 id="感情の欠落">「感情の欠落」</h2>
 <ul>
 <li>「激情」を発動した時、追加で与えられるダメージや、加えることのできる修正が1D3になる。</li>
 </ul>
 <p>あなたに流れている異形の血が、あなたの心の動きを阻害する。</p>
-<h2 id="%E5%8A%A3%E6%82%AA%E7%A8%AE">「劣悪種」</h2>
+<h2 id="劣悪種">「劣悪種」</h2>
 <ul>
 <li>技能の代用を行う時、「技能表」の「空白のマス」をまたげなくなる。</li>
 </ul>
 <p>あなたに流れている異形の血が、あなたの応用力を減らしている。</p>
-<h1 id="%E3%83%AC%E3%83%99%E3%83%AB%E3%81%A8%E3%83%A9%E3%83%B3%E3%82%AF">レベルとランク</h1>
+<h2 id="天敵">「天敵」</h2>
+<ul>
+<li>この【異形】を選択した時、自分が選択した【血族】以外の【血族】を一種類選ぶ。その【血族】が設定されているキャラクターが、このキャラクターに何らかの判定を行う時、+1の修正が加わる。</li>
+</ul>
+<p>あなたに流れている異形の血は、決して敵わない存在がいる。</p>
+<h2 id="不完全な体">「不完全な体」</h2>
+<ul>
+<li>「生命力」が0未満になった時、【瀕死】にならずにそのまま【死亡】する。</li>
+</ul>
+<p>あなたに流れている異形の血は、元から流れていた物ではなく、後から無理矢理追加されたものだ。</p>
+<h1 id="レベルとランク">レベルとランク</h1>
 <p>新しく作成したキャラクターの「ランク」は「ルビー」、「レベル」は１で作成します。</p>
-<h1 id="%E3%83%AC%E3%83%99%E3%83%AB">レベル</h1>
+<h1 id="レベル">レベル</h1>
 <p>レベルはそのキャラクター自身の強さを表すものです。レベルを上昇させるのには、セッションを行い「経験p」と呼ばれるものを貯めて、貯めた「経験p」分レベルを上昇させます。</p>
-<p>レベルを上昇させるのに必要な「経験p」は現在の「レベル×10」となります。</p>
+<p>レベルが上昇すると、「成長値」を獲得できます。獲得した「成長値」は「生命力」、「センス」、「技能数」に割り振ることができます。「成長値」の割り振りは、リスペックのタイミングで行います。</p>
+<p>レベルを上昇させるのに必要な「経験p」は「現在のレベル×10」、獲得できる「成長値」は「上昇前のレベル×2D3」となります。</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:center">現在のレベル</th>
 <th>｜</th>
-<th style="text-align:center">次のレベルに必要な「経験p」</th>
+<th style="text-align:center">次のレベルに<BR>必要な「経験p」</th>
+<th>｜</th>
+<th style="text-align:center">このレベルに達した<BR>ときの成長値</th>
 </tr>
 </thead>
 <tbody>
@@ -633,275 +304,95 @@ code {
 <td style="text-align:center">1</td>
 <td>｜</td>
 <td style="text-align:center">10</td>
+<td>｜</td>
+<td style="text-align:center">0</td>
 </tr>
 <tr>
 <td style="text-align:center">2</td>
 <td>｜</td>
 <td style="text-align:center">20</td>
+<td>｜</td>
+<td style="text-align:center">1×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">3</td>
 <td>｜</td>
 <td style="text-align:center">30</td>
+<td>｜</td>
+<td style="text-align:center">2×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">4</td>
 <td>｜</td>
 <td style="text-align:center">40</td>
+<td>｜</td>
+<td style="text-align:center">3×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">5</td>
 <td>｜</td>
 <td style="text-align:center">50</td>
+<td>｜</td>
+<td style="text-align:center">4×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">6</td>
 <td>｜</td>
 <td style="text-align:center">60</td>
+<td>｜</td>
+<td style="text-align:center">5×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">7</td>
 <td>｜</td>
 <td style="text-align:center">70</td>
+<td>｜</td>
+<td style="text-align:center">6×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">8</td>
 <td>｜</td>
 <td style="text-align:center">80</td>
+<td>｜</td>
+<td style="text-align:center">7×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">9</td>
 <td>｜</td>
 <td style="text-align:center">90</td>
+<td>｜</td>
+<td style="text-align:center">8×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">10</td>
 <td>｜</td>
 <td style="text-align:center">100</td>
+<td>｜</td>
+<td style="text-align:center">9×2D3</td>
 </tr>
 <tr>
 <td style="text-align:center">：</td>
 <td>｜</td>
 <td style="text-align:center">：</td>
+<td>｜</td>
+<td style="text-align:center">：</td>
 </tr>
 </tbody>
 </table>
-<p>レベルが１上昇する度、「生命力」と「センス」を1D6ずつ上昇させられます。「生命力」を上昇させて十の倍数に達した時、「力」を一つ追加で修得できる枠が増えます。「センス」を上昇させて十の倍数に達した時、「知恵」を一つ追加で修得できる枠が増えます。レベルがを上昇して十の倍数に達した時、「心」を一つ追加で修得できる枠が増えます。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">生命力</th>
-<th style="text-align:center">力</th>
-<th>｜</th>
-<th style="text-align:center">センス</th>
-<th style="text-align:center">知恵</th>
-<th>｜</th>
-<th style="text-align:center">レベル</th>
-<th style="text-align:center">心</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">初期値</td>
-<td style="text-align:center">1</td>
-<td>｜</td>
-<td style="text-align:center">10</td>
-<td style="text-align:center">1</td>
-<td>｜</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">+10</td>
-<td style="text-align:center">2</td>
-<td>｜</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">2</td>
-<td>｜</td>
-<td style="text-align:center">10</td>
-<td style="text-align:center">2</td>
-</tr>
-<tr>
-<td style="text-align:center">+20</td>
-<td style="text-align:center">3</td>
-<td>｜</td>
-<td style="text-align:center">30</td>
-<td style="text-align:center">3</td>
-<td>｜</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">3</td>
-</tr>
-<tr>
-<td style="text-align:center">+30</td>
-<td style="text-align:center">4</td>
-<td>｜</td>
-<td style="text-align:center">40</td>
-<td style="text-align:center">4</td>
-<td>｜</td>
-<td style="text-align:center">30</td>
-<td style="text-align:center">4</td>
-</tr>
-<tr>
-<td style="text-align:center">+40</td>
-<td style="text-align:center">5</td>
-<td>｜</td>
-<td style="text-align:center">50</td>
-<td style="text-align:center">5</td>
-<td>｜</td>
-<td style="text-align:center">40</td>
-<td style="text-align:center">5</td>
-</tr>
-<tr>
-<td style="text-align:center">+50</td>
-<td style="text-align:center">6</td>
-<td>｜</td>
-<td style="text-align:center">60</td>
-<td style="text-align:center">6</td>
-<td>｜</td>
-<td style="text-align:center">50</td>
-<td style="text-align:center">6</td>
-</tr>
-<tr>
-<td style="text-align:center">+60</td>
-<td style="text-align:center">7</td>
-<td>｜</td>
-<td style="text-align:center">70</td>
-<td style="text-align:center">7</td>
-<td>｜</td>
-<td style="text-align:center">60</td>
-<td style="text-align:center">7</td>
-</tr>
-<tr>
-<td style="text-align:center">+70</td>
-<td style="text-align:center">8</td>
-<td>｜</td>
-<td style="text-align:center">80</td>
-<td style="text-align:center">8</td>
-<td>｜</td>
-<td style="text-align:center">70</td>
-<td style="text-align:center">8</td>
-</tr>
-<tr>
-<td style="text-align:center">+80</td>
-<td style="text-align:center">9</td>
-<td>｜</td>
-<td style="text-align:center">90</td>
-<td style="text-align:center">9</td>
-<td>｜</td>
-<td style="text-align:center">80</td>
-<td style="text-align:center">9</td>
-</tr>
-<tr>
-<td style="text-align:center">+90</td>
-<td style="text-align:center">10</td>
-<td>｜</td>
-<td style="text-align:center">100</td>
-<td style="text-align:center">10</td>
-<td>｜</td>
-<td style="text-align:center">90</td>
-<td style="text-align:center">10</td>
-</tr>
-<tr>
-<td style="text-align:center">+100</td>
-<td style="text-align:center">11</td>
-<td>｜</td>
-<td style="text-align:center">110</td>
-<td style="text-align:center">11</td>
-<td>｜</td>
-<td style="text-align:center">100</td>
-<td style="text-align:center">11</td>
-</tr>
-</tbody>
-</table>
-<p>また、「力」と「知恵」の枠が一つずつ追加されると、技能を一つ追加で修得できるようになります。</p>
-<p>力・知恵の値に対して、技能の追加枠の数は以下の表のようになります。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:right">＼</th>
-<th style="text-align:center">知恵(センス成長値)</th>
-<th style="text-align:center">1 (初期値)</th>
-<th style="text-align:center">2 (+10)</th>
-<th style="text-align:center">3 (+20)</th>
-<th style="text-align:center">4 (+30)</th>
-<th style="text-align:center">5 (+40)</th>
-<th style="text-align:center">6 (+50)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right">力(生命力成長値)</td>
-<td style="text-align:center">＼</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:right"><em>1 (初期値)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:right"><em>2 (+10)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:right"><em>3 (+20)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">2</td>
-</tr>
-<tr>
-<td style="text-align:right"><em>4 (+30)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">3</td>
-</tr>
-<tr>
-<td style="text-align:right"><em>5 (+40)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">4</td>
-</tr>
-<tr>
-<td style="text-align:right"><em>6 (+50)</em></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">5</td>
-</tr>
-</tbody>
-</table>
-<h1 id="%E3%83%A9%E3%83%B3%E3%82%AF">ランク</h1>
+<p>「生命力」と「センス」は「成長値」を１割り振るごとに、１上昇します。「技能数」は「成長値」を10割り振るごとに、技能を追加で一つ修得できるようになります。</p>
+<p>また、それぞれ一定値以上上昇するたびに「成長判定」を行うことができます。「成長判定」では、目標値を６として2D6で判定を行います。判定に成功すると、上昇した能力に応じて「ポテンシャル」を修得可能な枠が増えます。どの能力がどれだけ上昇したときに、「ポテンシャル」のどれについて成長判定を行うかは、以下のルールに従います。</p>
+<ul>
+<li>「生命力」を上昇させて十の倍数に達した時、「力」について成長判定を行います。成長判定に成功すると、「力」の修得枠が一つ増えます。</li>
+<li>「センス」を上昇させて十の倍数に達した時、「知恵」について成長判定を行います。成長判定に成功すると、「知恵」の修得枠が一つ増えます。</li>
+<li>「技能数」を上昇させた時、「心」について成長判定を行います。成長判定に成功すると、「心」の修得枠が一つ増えます。</li>
+</ul>
+<p>成長判定に成功して獲得した「ポテンシャル」の修得枠は、
+リスペックのタイミングで使用することで、その修得枠と対応する「ポテンシャル」を獲得できます。
+例えば、「力」の修得枠は「力」に属する能力を修得するために使用できます
+（「力」の修得枠では「知恵」や「心」に属する能力は修得できません）。
+修得枠を獲得しても使用しなかった場合には、修得枠は増えたままとなり、
+次回以降のリスペックで使用することができます。</p>
+<h1 id="ランク">ランク</h1>
 <p>ランクは、冒険者としてどれだけ活躍しているかを表すものです。ランクを上昇させるのには、セッションを行い「報酬p」と呼ばれるものを貯めて、貯めた「報酬p」を使用して「昇格試験」に挑戦し、合格した場合上昇させる事ができます。</p>
 <p>ランクが上昇すると、様々な特典を得られるようになります。</p>
 <p>ランクと「昇格試験」に挑戦するのに必要な「報酬p」、そのランクで得られる特典は以下の通りです。</p>
@@ -974,24 +465,24 @@ code {
 </tr>
 </tbody>
 </table>
-<h1 id="%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0">アイテム</h1>
+<h1 id="アイテム">アイテム</h1>
 <p>「アイテム」は特別な力を持つ道具で、それぞれに違った効果があります。キャラクター作成時には、キャラクターに「通常アイテム」を二つ持たせます。セッションの開始時、キャラクターには最大で六つの「アイテム」を所持させることができます。「アイテム」を取得する時は、「報酬p」を使用して取得します。ランクが「ルビー」のキャラクターは、所持しているアイテムが無い場合、「リスペック」のタイミングで「通常アイテム」を二つまで「報酬p」を使用せずに取得できます。</p>
 <p>また、不要な「アイテム」は返却することで、取得に必要な「報酬p」と交換する事ができます（ランク「ルビー」の特典で「報酬p」を使用せずに手に入れた「アイテム」は、返却しても「報酬p」と交換する事はできません）。</p>
-<h2 id="%E5%9B%9E%E5%BE%A9%E8%96%AC">「回復薬」</h2>
+<h2 id="回復薬">「回復薬」</h2>
 <ul>
 <li>通常アイテム</li>
 <li>取得必要「報酬p」：5</li>
 <li>任意のタイミングで使用できる</li>
 <li>このアイテムを使用した時、「不調」を一種類消滅させるか、1D6を行い出目の数字分「生命力」を回復させることができる。</li>
 </ul>
-<h2 id="%E9%80%86%E8%BB%A2%E6%99%82%E8%A8%88">「逆転時計」</h2>
+<h2 id="逆転時計">「逆転時計」</h2>
 <ul>
 <li>通常アイテム</li>
 <li>取得必要「報酬p」：5</li>
 <li>自分を含む誰かが判定を行った時</li>
 <li>このアイテムを使用した時、その判定をもう一度ふり直させることができる。</li>
 </ul>
-<h2 id="%E5%AE%88%E3%82%8A%E3%81%AE%E8%AD%B7%E7%AC%A6">「守りの護符」</h2>
+<h2 id="守りの護符">「守りの護符」</h2>
 <ul>
 <li>特殊アイテム</li>
 <li>取得必要「報酬p」：8</li>
@@ -999,31 +490,53 @@ code {
 <li>「装甲」を10追加する。</li>
 <li>「装甲」の耐久値が0になった時、この「アイテム」は消滅する（追加された「装甲」の耐久値も同時に消滅する）。</li>
 </ul>
-<h2 id="%E8%B5%B7%E7%88%86%E5%89%A4">「起爆剤」</h2>
+<h2 id="起爆剤">「起爆剤」</h2>
 <ul>
 <li>特殊アイテム</li>
 <li>取得必要「報酬p」：8</li>
 <li>相手に物理ダメージか、魔法ダメージを与えた時に使用できる。</li>
 <li>このアイテムを使用した時、ダメージを4追加する。</li>
 </ul>
-<h2 id="%E8%BB%A2%E9%80%81%E8%A3%85%E7%BD%AE">「転送装置」</h2>
+<h2 id="転送装置">「転送装置」</h2>
 <ul>
 <li>特殊アイテム</li>
 <li>取得必要「報酬p」：10</li>
 <li>戦闘中、「ラウンドの開始」時に使用できる。</li>
 <li>このアイテムを使用した時、「フィールド表」から2D6で「フィールド」を決定し、その「フィールド」に変更する。</li>
 </ul>
-<h1 id="%E3%83%AA%E3%82%B9%E3%83%9A%E3%83%83%E3%82%AF">リスペック</h1>
+<h2 id="身代わり人形">「身代わり人形」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：20</li>
+<li>生存判定に失敗したタイミングで使用できる</li>
+<li>このアイテムを使用した時、失敗した生存判定を成功したことにできる。</li>
+<li>このアイテムは、一つしか所持できない。</li>
+</ul>
+<h2 id="霊薬">「霊薬」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：22</li>
+<li>任意のタイミングで使用できる</li>
+<li>このアイテムを使用した時、「不調」を全て消滅させるか、「生命力」を最大値まで回復させることができる。</li>
+</ul>
+<h2 id="秘薬">「秘薬」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：33</li>
+<li>任意のタイミングで使用できる</li>
+<li>このアイテムを使用した時、「不調」を全て消滅させて、更に「生命力」を最大値まで回復させることができる。</li>
+</ul>
+<h1 id="リスペック">リスペック</h1>
 <p>セッションとセッションの間に、キャラクターのステータスを変更することができます。これを「リスペック」と呼びます。</p>
 <p>「リスペック」で変更できるステータスは、「報酬p」を使用することで変更できるものと、「報酬p」を使用せずに変更できるものがあります。</p>
-<h3 id="%E5%A0%B1%E9%85%ACp%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%A7%E5%A4%89%E6%9B%B4%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9">「報酬p」を使用することで変更できるステータス</h3>
+<h3 id="報酬pを使用することで変更できるステータス">「報酬p」を使用することで変更できるステータス</h3>
 <ul>
 <li>アイテム
 <ul>
 <li>「報酬p」は「アイテム」によって変動</li>
 </ul>
 </li>
-<li>力・知恵・心
+<li>ポテンシャル
 <ul>
 <li>「報酬p」10で一括変更可能（追加で修得する時は「報酬p」は必要ありません）</li>
 </ul>
@@ -1034,7 +547,7 @@ code {
 </ul>
 </li>
 </ul>
-<h3 id="%E5%A0%B1%E9%85%ACp%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%9B%E3%81%9A%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9">「報酬p」を使用せずに変更できるステータス</h3>
+<h3 id="報酬pを使用せずに変更できるステータス">「報酬p」を使用せずに変更できるステータス</h3>
 <ul>
 <li>職業</li>
 <li>技能</li>
@@ -1043,5 +556,5 @@ code {
 <li>切り札</li>
 </ul>
 
-</body>
-</html>
+    </body>
+    </html>

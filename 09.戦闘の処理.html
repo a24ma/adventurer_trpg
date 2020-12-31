@@ -1,381 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>09.戦闘の処理.md</title>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-
-<style>
-/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-body {
-	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
-	font-size: var(--vscode-markdown-font-size, 14px);
-	padding: 0 26px;
-	line-height: var(--vscode-markdown-line-height, 22px);
-	word-wrap: break-word;
-}
-
-#code-csp-warning {
-	position: fixed;
-	top: 0;
-	right: 0;
-	color: white;
-	margin: 16px;
-	text-align: center;
-	font-size: 12px;
-	font-family: sans-serif;
-	background-color:#444444;
-	cursor: pointer;
-	padding: 6px;
-	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
-}
-
-#code-csp-warning:hover {
-	text-decoration: none;
-	background-color:#007acc;
-	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
-}
-
-body.scrollBeyondLastLine {
-	margin-bottom: calc(100vh - 22px);
-}
-
-body.showEditorSelection .code-line {
-	position: relative;
-}
-
-body.showEditorSelection .code-active-line:before,
-body.showEditorSelection .code-line:hover:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 0;
-	left: -12px;
-	height: 100%;
-}
-
-body.showEditorSelection li.code-active-line:before,
-body.showEditorSelection li.code-line:hover:before {
-	left: -30px;
-}
-
-.vscode-light.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.15);
-}
-
-.vscode-light.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.40);
-}
-
-.vscode-light.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-dark.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.4);
-}
-
-.vscode-dark.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.60);
-}
-
-.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-high-contrast.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 160, 0, 0.7);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 160, 0, 1);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-	outline: 1px solid -webkit-focus-ring-color;
-	outline-offset: -1px;
-}
-
-hr {
-	border: 0;
-	height: 2px;
-	border-bottom: 2px solid;
-}
-
-h1 {
-	padding-bottom: 0.3em;
-	line-height: 1.2;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-h1, h2, h3 {
-	font-weight: normal;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-table > thead > tr > th {
-	text-align: left;
-	border-bottom: 1px solid;
-}
-
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
-}
-
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
-}
-
-blockquote {
-	margin: 0 7px 0 5px;
-	padding: 0 16px 0 10px;
-	border-left-width: 5px;
-	border-left-style: solid;
-}
-
-code {
-	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-	font-size: 1em;
-	line-height: 1.357em;
-}
-
-body.wordWrap pre {
-	white-space: pre-wrap;
-}
-
-pre:not(.hljs),
-pre.hljs code > div {
-	padding: 16px;
-	border-radius: 3px;
-	overflow: auto;
-}
-
-pre code {
-	color: var(--vscode-editor-foreground);
-	tab-size: 4;
-}
-
-/** Theming */
-
-.vscode-light pre {
-	background-color: rgba(220, 220, 220, 0.4);
-}
-
-.vscode-dark pre {
-	background-color: rgba(10, 10, 10, 0.4);
-}
-
-.vscode-high-contrast pre {
-	background-color: rgb(0, 0, 0);
-}
-
-.vscode-high-contrast h1 {
-	border-color: rgb(0, 0, 0);
-}
-
-.vscode-light table > thead > tr > th {
-	border-color: rgba(0, 0, 0, 0.69);
-}
-
-.vscode-dark table > thead > tr > th {
-	border-color: rgba(255, 255, 255, 0.69);
-}
-
-.vscode-light h1,
-.vscode-light hr,
-.vscode-light table > tbody > tr + tr > td {
-	border-color: rgba(0, 0, 0, 0.18);
-}
-
-.vscode-dark h1,
-.vscode-dark hr,
-.vscode-dark table > tbody > tr + tr > td {
-	border-color: rgba(255, 255, 255, 0.18);
-}
-
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&#x9593;&#x5408;&#x3068;&#x901F;&#x5EA6;&#x306E;&#x5236;&#x9650;</title>
+        <style>
 </style>
-
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
-/* Tomorrow Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-
-/* Tomorrow Comment */
-.hljs-comment,
-.hljs-quote {
-	color: #8e908c;
-}
-
-/* Tomorrow Red */
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-regexp,
-.hljs-deletion {
-	color: #c82829;
-}
-
-/* Tomorrow Orange */
-.hljs-number,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-	color: #f5871f;
-}
-
-/* Tomorrow Yellow */
-.hljs-attribute {
-	color: #eab700;
-}
-
-/* Tomorrow Green */
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-	color: #718c00;
-}
-
-/* Tomorrow Blue */
-.hljs-title,
-.hljs-section {
-	color: #4271ae;
-}
-
-/* Tomorrow Purple */
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #8959a8;
-}
-
-.hljs {
-	display: block;
-	overflow-x: auto;
-	color: #4d4d4c;
-	padding: 0.5em;
-}
-
-.hljs-emphasis {
-	font-style: italic;
-}
-
-.hljs-strong {
-	font-weight: bold;
-}
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
-
-<style>
-/*
- * Markdown PDF CSS
- */
-
- body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
-	padding: 0 12px;
-}
-
-pre {
-	background-color: #f8f8f8;
-	border: 1px solid #cccccc;
-	border-radius: 3px;
-	overflow-x: auto;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-}
-
-pre:not(.hljs) {
-	padding: 23px;
-	line-height: 19px;
-}
-
-blockquote {
-	background: rgba(127, 127, 127, 0.1);
-	border-color: rgba(0, 122, 204, 0.5);
-}
-
-.emoji {
-	height: 1.4em;
-}
-
-code {
-	font-size: 14px;
-	line-height: 19px;
-}
-
-/* for inline code */
-:not(pre):not(.hljs) > code {
-	color: #C9AE75; /* Change the old color so it seems less like an error */
-	font-size: inherit;
-}
-
-/* Page Break : use <div class="page"/> to insert page break
--------------------------------------------------------- */
-.page {
-	page-break-after: always;
-}
-
-</style>
-
-<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-</head>
-<body>
-  <script>
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
-          ? 'dark'
-          : 'default'
-    });
-  </script>
-<h1 id="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</h1>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="はじめに">はじめに</h1>
 <p>バトルシーンは、キャラクター同士の戦闘を行なうためのシーンです。ここではバトルシーンについて説明します。</p>
-<h1 id="%E6%88%A6%E9%97%98%E3%81%AE%E7%99%BA%E7%94%9F">戦闘の発生</h1>
+<h1 id="戦闘の発生">戦闘の発生</h1>
 <p>探索フェイズ中、戦闘を仕掛けると、仕掛けられたプレイヤーが合意しているのなら即座に戦闘が発生します。戦闘を仕掛けられた相手が拒絶した場合でも、＜奇襲＞の技能判定に成功すれば戦闘を仕掛けることができます（NPCに戦闘を仕掛ける場合、原則として＜奇襲＞の技能判定が必要）。一度戦闘を仕掛けると、1Lが経過しない限り再び戦闘を仕掛けることはできません（戦闘を仕掛けられたり、他人の戦闘に乱入することはできる）。</p>
 <p>また、探索フェイズ中に「バトルシーン」が発生した時、その「バトルシーン」が発生した「シーン」に登場していれば、無条件で戦闘に乱入する事ができます。「シーン」に登場していない場合は、＜索敵＞の技能判定に成功すれば、その戦闘に乱入することができます。</p>
 <p>クライマックスフェイズで発生する戦闘は全員参加となります。</p>
 <p>探索フェイズ中の戦闘では、戦闘に参加しているキャラクター全員で1D6を行います。その平均値を「戦意」として扱い、その値以上の「生命力」が減少するか、「生命力」が0になるとその戦闘から脱落します。また、ラウンドの経過数が「戦意」の値を超えるか、その戦闘に参加しているプレイヤー全員の戦闘意思が無くなると、その戦闘は終了します。</p>
 <p>クライマックスフェイズでの戦闘は、「戦意」が存在しません。代わりに、戦闘の終了条件が設定されています。終了条件が満たされた時点で、その戦闘は終了します。また、探索フェイズ中の戦闘と同様に、「生命力」が0になると戦闘から脱落します。</p>
-<h1 id="%E6%88%A6%E9%97%98%E3%81%AE%E6%B5%81%E3%82%8C">戦闘の流れ</h1>
+<h1 id="戦闘の流れ">戦闘の流れ</h1>
 <p>戦闘は以下のような流れで進行します。</p>
-<pre class="hljs"><code><div>　　　 バトルシーン開始
+<pre><code><code><div>　　　 バトルシーン開始
 　　　　　　　｜
 　　　戦闘の参加者の確認
 　　　　　　　｜
@@ -406,8 +64,8 @@ code {
 　　　　 勝利者の確定
 　　　　　　　｜
 　　　　 戦利品の獲得
-</div></code></pre>
-<h1 id="%E9%96%93%E5%90%88%E3%81%A8%E9%80%9F%E5%BA%A6">間合と速度</h1>
+</div></code></code></pre>
+<h1 id="間合と速度">間合と速度</h1>
 <p>「バトルシーン」が開始されたら「間合表」を広げてください。「間合表」は戦闘中のキャラクター同士の距離を表すものです。</p>
 <p>ラウンドが開始されたら、参加しているキャラクターはダイスを二つ用意します。1から6の数字を二つ決めてダイスの目を使ってそれを公開します。全員が公開したら、「せーの」で自分が公開した片方のダイスを指定してください。指定した方のダイスがそのラウンドの自分の「間合」になり、指定しなかった方のダイスがそのラウンドの自分の「速度」になります。</p>
 <p>「間合」は属性が割り振られています。属性には「光」「火」「土」「闇」「水」「風」「領域外」の全部で七つあり、それぞれに特徴があります。通常、「領域外」を間合に選択する事は出来ません。また、「領域外」以外の間合の両隣には一マスの空欄があり、これを「レンジ」と言います。射程の存在する「武器」や「スキル・魔法」を使用する時、間合とレンジは一つにつき射程が１マス離れていると数えます。「領域外」は射程として数えられません。</p>
@@ -457,14 +115,14 @@ code {
 </li>
 </ul>
 <p>「速度」はそのラウンド中の行動順を表すものです。速度が1のキャラクターから順番に行動を行います。また、戦闘中の行為判定のファンブル値は、目標値に選択した速度を引いた値になり、選択した速度がそのラウンド中に使用できるコストになります。キャラクターに「余剰コスト」がある場合、そのラウンド中に使用できるコストに、「余剰コスト」分のコストが追加されます。</p>
-<h1 id="%E9%96%93%E5%90%88%E3%81%A8%E9%80%9F%E5%BA%A6%E3%81%AE%E5%88%B6%E9%99%90">間合と速度の制限</h1>
+<h1 id="間合と速度の制限">間合と速度の制限</h1>
 <p>戦闘中、「スキル・魔法」の効果によって、間合や速度を制限されることがあります。この時、「間合と速度の公開」と「間合と速度の決定」は、通常通り行えます。「間合と速度の決定」後に、制限された間合や速度を変更してください。</p>
 <p>ただし、「前のラウンドで選択した間合と、その隣の間合しか「間合と速度の決定」で選択できなくなる」と言った制限のされ方をされている場合は、「間合と速度の公開」時に公開する二つのダイスのどちらかは、必ずその範囲内の間合や速度の数字にしておいてください。</p>
-<h1 id="%E3%83%90%E3%83%88%E3%83%AB%E3%82%B7%E3%83%BC%E3%83%B3%E3%81%A7%E3%81%AE%E8%A1%8C%E5%8B%95">バトルシーンでの行動</h1>
-<p>戦闘中は自分の手番に「武器」による攻撃か攻撃系の「スキル・魔法」を一回、サポート系の「スキル・魔法」を指定されているタイミングで使用できます。「スキル・魔法」を使用する場合、そのラウンド中に使用できるコストを上回ってはいけません。</p>
+<h1 id="バトルシーンでの行動">バトルシーンでの行動</h1>
+<p>戦闘中は自分の手番に「武器」による≪攻撃≫か攻撃系の「スキル・魔法」を一回、サポート系の「スキル・魔法」を指定されているタイミングで使用できます。「スキル・魔法」を使用する場合、そのラウンド中に使用できるコストを上回ってはいけません。</p>
 <p>「ラウンド開始」から「間合と速度の公開」までの間に「スキル・魔法」を使用する場合、コストの総量がそのラウンド中に使用できるコストを上回っても構いませんが、そのキャラクターは【枯渇】と言う状態になります。</p>
 <p>【枯渇】の状態になったキャラクターは、「間合と速度の決定」以降そのラウンドでコストを使用する「スキル・魔法」は使用できません。</p>
-<h1 id="%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E7%A8%AE%E9%A1%9E">ダメージの種類</h1>
+<h1 id="ダメージの種類">ダメージの種類</h1>
 <p>ダメージには「物理ダメージ」「魔法ダメージ」「特殊ダメージ」があります。</p>
 <ul>
 <li><strong>物理ダメージ</strong></li>
@@ -481,7 +139,7 @@ code {
 </ul>
 <p>特殊なダメージで「不調」を与えます。「特殊ダメージ」を与えた時、「不調表」から1D6で「不調」を決定し、１ダメージにつき、その「不調」を一つ与えます。
 　「不調」の種類は以下の六つです。</p>
-<h2 id="%E4%B8%8D%E8%AA%BF%E8%A1%A8">【不調表】</h2>
+<h2 id="不調表">【不調表】</h2>
 <ol>
 <li>「猛毒」
 <ul>
@@ -521,48 +179,69 @@ code {
 </li>
 </ol>
 <p>全ての「不調」は累積します。また、「不調」の回復判定は、探索フェイズ中は自分の手番に一回、「バトルシーン」中はラウンドの開始時に一回行えます。「不調」の回復判定に成功すると、その種類の「不調」は消滅します（累積分含む）。「不調」の回復判定は1Lが経過しない限り、再び行う事は出来ません。</p>
-<h1 id="%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%87%A6%E7%90%86">ダメージの処理</h1>
+<h1 id="ダメージの処理">ダメージの処理</h1>
 <p>一度に複数の種類のダメージを受けた時は、「物理ダメージ」→「魔法ダメージ」→「特殊ダメージ」の順番に処理を行います。</p>
 <p>また、ダメージの計算は、以下のような順番で処理を行います。</p>
-<pre class="hljs"><code><div>「武器」又は攻撃系の「スキル・魔法」の威力
+<pre><code><code><div>「武器」又は攻撃系の「スキル・魔法」の威力
 　　　　　　　　　　 ｜
 　　　　　　　「クリティカル」
 　　　　　　　　　　 ｜
-　　　　　　　「力・知恵・心」
+　　　　　　　「ポテンシャル」
 　　　　　　　　　　 ｜
 　　　　サポート系の「スキル・魔法」
 　　　　　　　　　　 ｜
 　　　　　　　　「アイテム」
 　　　　　　　　　　 ｜
 　　　　　属性の「バフ・デバフ」
-</div></code></pre>
+</div></code></code></pre>
 <p>同時に複数の種類のダメージを与えた時、修正によりダメージを追加や上昇した場合、何の指定も無い場合は、ダメージを与えた「武器」、「スキル・魔法」の一番初めに書かれているダメージが追加、上昇します。</p>
-<h1 id="%E2%89%AA%E5%9B%9E%E9%81%BF%E2%89%AB%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">≪回避≫について</h1>
-<p>戦闘中、自分のキャラクターが攻撃の目標に指定される場合があります。その攻撃を防御したり避けたり受け流す行為を、まとめて≪回避≫と呼びます。</p>
-<p>「武器」で攻撃された場合、相手の間合が射程内に入っている「武器」を使用して≪回避≫を行うことができます。</p>
-<p>「スキル・魔法」で攻撃され場合、相手の使用した「スキル・魔法」の指定特技を使用して≪回避≫を行うことができます。ただし、「魔法」は「力・魔法使い」を修得していない場合≪回避≫を行うことができません。</p>
-<h1 id="%E7%89%B9%E6%AE%8A%E3%81%AA%E2%89%AA%E5%9B%9E%E9%81%BF%E2%89%AB">特殊な≪回避≫</h1>
-<p>探索フェイズ中の戦闘では、何らかの攻撃を仕掛けられた時、「武器」や指定技能で≪回避≫を行う代わりに、「逃走」の技能を使用して「離脱」を行う事が出来ます。</p>
-<p>「離脱」を行い判定に成功した場合、その攻撃を≪回避≫することができます。ただし、「離脱」に成功した場合、その戦闘から脱落し敗者になります。</p>
-<h1 id="%E5%B0%84%E7%A8%8B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">射程について</h1>
+<h1 id="攻撃と回避について">≪攻撃≫と≪回避≫について</h1>
+<p>戦闘中、他のキャラクターに対して、「武器」や「スキル・魔法」でダメージを与えることを≪攻撃≫と呼びます。また≪攻撃≫を行うための判定を「命中判定」と呼びます。</p>
+<p>「武器」や「スキル・魔法」に設定された射程内にいるキャラクターに対して命中判定を行い、命中判定に成功すると、≪攻撃≫ができます。</p>
+<p>また、≪攻撃≫をされた時、その≪攻撃≫を防御したり避けたり受け流す行為を、まとめて≪回避≫と呼び、その≪攻撃≫のダメージを受けません。また、≪回避≫を行うための判定を「回避判定」と呼びます。</p>
+<p>回避判定に成功すると、≪攻撃≫は命中しなかったことになり、≪攻撃≫を≪回避≫できます。回避判定に失敗すると、≪攻撃≫が命中したことになり、≪攻撃≫を≪回避≫できません。</p>
+<p>「武器」で≪攻撃≫された場合、相手の間合が射程内に入っている「武器」を使用して≪回避≫を行うことができます。</p>
+<p>「スキル・魔法」で≪攻撃≫され場合、相手の使用した「スキル・魔法」の指定特技を使用して≪回避≫を行うことができます。ただし、「魔法」は「力・魔法使い」を修得していない場合≪回避≫を行うことができません。</p>
+<pre><code><code><div>　　　　　　　　　≪攻撃≫の目標の決定
+　　　　　　　　　　　　　　｜
+　　　　　　　目標の≪回避≫の可否を確認
+　　　　　　　　　　　　　　｜
+　　　　　　　　 ―――――――――――――――――――――
+　　　　　　　　｜　　　　　　　　　　 ｜
+　　　　　≪回避≫可能　　　　　　≪回避≫不可
+　　　　　　　　｜　　　　　　　　　　 ｜
+　　　　目標の回避判定　　　　　　　　 ｜
+　　　　　　　　｜　　　　　　　　　　 ｜
+　　　 ――――――――――――――――――　　　　　　｜
+　　　｜　　　　　　　　　｜　　　　　 ｜
+回避判定の成功　　　回避判定の失敗　　｜
+　　　｜　　　　　　　　　｜　　　　　 ｜
+　　　｜　　　　　　　　　 ――――――――――――
+　　　｜　　　　　　　　　　　　｜
+≪回避≫成功　　　　　　　≪攻撃≫成功
+</div></code></code></pre>
+<h1 id="特殊な回避">特殊な≪回避≫</h1>
+<p>探索フェイズ中の戦闘では、何らかの≪攻撃≫を仕掛けられた時、「武器」や指定技能で≪回避≫を行う代わりに、「逃走」の技能を使用して「離脱」を行う事が出来ます。</p>
+<p>「離脱」を行い判定に成功した場合、その≪攻撃≫を≪回避≫することができます。ただし、「離脱」に成功した場合、その戦闘から脱落し敗者になります。</p>
+<h1 id="射程について">射程について</h1>
 <p>「武器」には射程があり、「スキル・魔法」にも射程が設定されているものがあります。これらのものは射程内にいるキャラクターしか目標に選ぶことができません。</p>
 <p>また、間合には「L/R」と書かれており、それぞれ「L」が左方向、「R」右方向を表しています。「武器」や射程が設定されている「スキル・魔法」を使用する時、射程内の目標がいる方向に対して「射程を伸ばす」と言う表現を行います。これは「左右どちらの方向を指定したか」を表すものです。射程の中には「以上」と書かれたものがありますが、射程を伸ばすことができる上限は、自分のキャラクターがいる間合の、射程を伸ばした方向と反対方向の隣の間合までです。</p>
-<h2 id="%E3%83%90%E3%83%88%E3%83%AB%E3%82%B7%E3%83%BC%E3%83%B3%E4%B8%AD%E3%81%AE%E3%82%B9%E3%83%9A%E3%82%B7%E3%83%A3%E3%83%AB%E3%81%A8%E3%83%95%E3%82%A1%E3%83%B3%E3%83%96%E3%83%AB">[バトルシーン中の「スペシャル」と「ファンブル」]</h2>
+<h2 id="バトルシーン中のスペシャルとファンブル">[バトルシーン中の「スペシャル」と「ファンブル」]</h2>
 <p>「バトルシーン」中、「間合と速度の決定」から「ラウンドの終了」になる前の判定で「ファンブル」になると、「トラブル表」を使用せず【故障】と言う状態になります。【故障】になると、そのラウンド中はダイスを使用した判定を行えなくなります。ただし、一ラウンド中に二回以上【故障】すると、二回目以降は通常通り「トラブル表」を使用し、ファンブルの効果を決定してください。</p>
 <p>また、命中判定や回避判定で「スペシャル」になると、通常の「スペシャル」の効果に加え、次の効果が追加されます。</p>
-<h2 id="%E6%AD%A6%E5%99%A8%E3%81%AB%E3%82%88%E3%82%8B%E5%88%A4%E5%AE%9A%E3%81%AE%E5%A0%B4%E5%90%88">「「武器」による判定の場合」</h2>
+<h2 id="武器による判定の場合">「「武器」による判定の場合」</h2>
 <p>命中判定で「スペシャル」になると、「クリティカル」になり、ダメージが二倍になります。この効果は、お互いの間合の属性の効果によってダメージが増減する前に適用されます。</p>
 <p>回避判定で「スペシャル」になると、「カウンター」になり、≪回避≫を行った「武器」で相手にダメージを与えることができます。</p>
-<h2 id="%E3%82%B9%E3%82%AD%E3%83%AB%E3%83%BB%E9%AD%94%E6%B3%95%E3%81%AB%E3%82%88%E3%82%8B%E5%88%A4%E5%AE%9A%E3%81%AE%E5%A0%B4%E5%90%88">「「スキル・魔法」による判定の場合」</h2>
+<h2 id="スキル魔法による判定の場合">「「スキル・魔法」による判定の場合」</h2>
 <p>「スキル・魔法」を使用して「スペシャル」になると、その「スキル・魔法」の使用コストを0で使用できます。</p>
-<h1 id="%E9%80%9F%E5%BA%A6%E3%81%AE%E5%87%A6%E7%90%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">速度の処理について</h1>
+<h1 id="速度の処理について">速度の処理について</h1>
 <p>戦闘は１の速度から順番に処理を行いますが、まず、その速度内のキャラクター全員の行動を決定します（自分の手番に使用できるサポート系の「スキル・魔法」は先に判定を行います）。</p>
-<p>全員の行動が決まったら、その行動の判定を行います。判定が全て終了し、≪回避≫や「スキル・魔法」の判定が終わってから、ダメージや回復、「不調」の付与や【故障】の処理が行われます。例えば、１の速度を選んだ二人のキャラクターが、２の速度の同じキャラクターを攻撃して両方がダメージを与えた場合、１の速度の全ての判定が終わった後、両方のダメージの合計値をダメージとして、生命力の減少を行います（もし「装甲」があり、両方のダメージが物理ダメージだった場合、片方のダメージが「装甲」の耐久値を上回っていても、「装甲」は破壊されますが、もう片方のダメージ分「生命力」は減少しません）。ダメージを受けて「回復薬」を使用した場合は、回復量の数値分ダメージの数値を減少させます。回復量がダメージを上回った場合、上回った数値分回復します。</p>
-<p>また、同じ速度内のキャラクター同士が、「武器」での攻撃でお互いを目標に選び、両方の命中判定が成功した場合、「鍔迫り合い」が発生します。「鍔迫り合い」が発生するとお互いの攻撃に対して≪回避≫を行う事が出来なくなります。「鍔迫り合い」が発生したら、お互いにダメージを決定し、ダメージが大きい方の攻撃が成功したことになります。ダメージが同じだった場合「相打ち」となり、両方が同じダメージを受けます。</p>
-<h1 id="%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">「フィールド」について</h1>
+<p>全員の行動が決まったら、その行動の判定を行います。判定が全て終了し、≪回避≫や「スキル・魔法」の判定が終わってから、ダメージや回復、「不調」の付与や【故障】の処理が行われます。例えば、１の速度を選んだ二人のキャラクターが、２の速度の同じキャラクターを≪攻撃≫して両方がダメージを与えた場合、１の速度の全ての判定が終わった後、両方のダメージの合計値をダメージとして、生命力の減少を行います（もし「装甲」があり、両方のダメージが物理ダメージだった場合、片方のダメージが「装甲」の耐久値を上回っていても、「装甲」は破壊されますが、もう片方のダメージ分「生命力」は減少しません）。ダメージを受けて「回復薬」を使用した場合は、回復量の数値分ダメージの数値を減少させます。回復量がダメージを上回った場合、上回った数値分回復します。</p>
+<p>また、同じ速度内のキャラクター同士が、「武器」での≪攻撃≫でお互いを目標に選び、両方の命中判定が成功した場合、「鍔迫り合い」が発生します。「鍔迫り合い」が発生するとお互いの≪攻撃≫に対して≪回避≫を行う事が出来なくなります。「鍔迫り合い」が発生したら、お互いにダメージを決定し、ダメージが大きい方の≪攻撃≫が成功したことになります。ダメージが同じだった場合「相打ち」となり、両方が同じダメージを受けます。</p>
+<h1 id="フィールドについて">「フィールド」について</h1>
 <p>戦闘が発生した時、いつでも同じ環境下で戦っているとは限りません。その環境は何もない平原だったり、木々が鬱蒼と生い茂る森の中だったり、噴火する火山の火口かもしれません。こう言った環境の事を「フィールド」と呼び、「フィールド」は戦闘をしているキャラクターに良い効果を与えるものもあれば、悪い効果を与えるものもあります。</p>
 <p>「フィールド」は以下の11個です</p>
-<h2 id="%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E8%A1%A8">【フィールド表】</h2>
+<h2 id="フィールド表">【フィールド表】</h2>
 <ol start="2">
 <li>「平地」
 <ul>
@@ -631,30 +310,33 @@ code {
 </ul>
 </li>
 </ol>
-<h1 id="%E5%8B%9D%E6%95%97%E3%81%A8%E6%88%A6%E5%88%A9%E5%93%81">勝敗と戦利品</h1>
+<h1 id="勝敗と戦利品">勝敗と戦利品</h1>
 <p>戦闘が終了した時、原則として「戦闘終了時に脱落していなかったキャラクター」が勝者となり、「戦闘から脱落したキャラクター」が敗者となります（戦闘に勝利条件や敗北条件が設定されている場合、その条件を満たしているキャラクターがそれぞれ勝者と敗者になります）。</p>
 <p>敗者がいない場合、その戦闘は「無効試合」になります。</p>
 <p>勝者は敗者の中から一人を選び、その敗者の【想い】か、持っている【情報】を一つ獲得できます。</p>
-<h1 id="%E6%BF%80%E6%83%85">激情</h1>
+<h1 id="激情">激情</h1>
 <p>クライマックスフェイズの戦闘中、自らの【想い】を公開することで、判定やダメージに修正を加えることが出来ます。この行為を「激情」と呼びます。【想い】を公開すると、以降その【想い】は公開情報として扱われるため、同じ【想い】を使用して「激情」を発動する事はできません。</p>
 <p>「激情」を発動すると、以下のいずれかの効果を得られます。</p>
 <ul>
 <li>
-<p>攻撃を行い、相手にダメージを与えた時に発動すると、与えるダメージに1D6を追加する事ができます（この処理は、自分が与えたダメージが決定した後に追加されます）。</p>
+<p>≪攻撃≫を行い、相手にダメージを与えた時に発動すると、与えるダメージに1D6を追加する事ができます（この処理は、自分が与えたダメージが決定した後に追加されます）。</p>
 </li>
 <li>
 <p>何らかの判定を行う時に発動すると、通常の判定に+1D6の修正を加えることができます。</p>
 </li>
 </ul>
-<h1 id="%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E6%AD%BB%E4%BA%A1">キャラクターの死亡</h1>
-<p>クライマックスフェイズの戦闘中、キャラクターの「生命力」が0になる事があります。「生命力」が0になったキャラクターは、原則として「行動不能」になります。ただし、プレイヤーが望んだ場合、プレイヤーは「行動不能」になった自分のキャラクターを【死亡】した扱いにできます。</p>
-<p>【死亡】したキャラクターは、以降、他のセッションで使用できなくなります。</p>
+<h1 id="キャラクターの死亡">キャラクターの死亡</h1>
+<p>クライマックスフェイズの戦闘中では、キャラクターの「生命力」が減少した時、減少値が現在の「生命力」を上回ると、「生命力」が0未満になります。「生命力」が0未満になったキャラクターは＜医学＞の技能で回復判定を行います。この判定で「生命力」0以上にならなかった場合、「行動不能」ではなく【瀕死】の状態になります。</p>
+<p>【瀕死】になったキャラクターは「バトルシーン」の終了時に、他のPCから復活判定を受けることができます（【瀕死】のキャラクターに対して、一人一回行えます）。復活判定が一人でも成功すると、キャラクターの「生命力」が0になり【瀕死】から「行動不能」の状態になります。全員の復活判定が失敗すると、【瀕死】のキャラクターは＜記憶＞の技能で判定を行います。この判定を「生存判定」と呼びます。</p>
+<p>生存判定に成功すると、キャラクターの「生命力」が0になり【瀕死】から「行動不能」の状態になります。生存判定に失敗した場合、そのキャラクターは【瀕死】から【死亡】の状態になります。</p>
+<p>また、「バトルシーン」中に自分のキャラクターが【瀕死】になった時、プレイヤーが望んだ場合、プレイヤーは【瀕死】になった自分のキャラクターを【死亡】した扱いにできます。</p>
+<p>「死亡」したキャラクターは、以降、他のセッションで使用できなくなります。</p>
 <p>キャラクターを【死亡】させた場合、以下の行動を取ることができます。</p>
 <ul>
 <li>
 <p>最後の一撃</p>
 <ul>
-<li>「最後の一撃」を使用した場合、キャラクターは「領域外」に移動し、所持している「武器」の中から一つを選び、攻撃できます。更に、使用可能なサポート系の「スキル・魔法」をコストを無視して発動できます。この攻撃の判定は行わず、「クリティカル」が出たものとして扱い、目標にされたキャラクターは回避判定を行います。回避判定に失敗すると、使用した「武器」の威力の最大値でダメージを与えることができます（例えば【近接武器】で攻撃を行った場合、威力は1D6なので6ダメージ。「クリティカル」の効果で二倍になるので、12の物理ダメージを与えることができます）。</li>
+<li>「最後の一撃」を使用した場合、キャラクターは「領域外」に移動し、所持している「武器」の中から一つを選び、≪攻撃≫できます。更に、使用可能なサポート系の「スキル・魔法」をコストを無視して発動できます。この≪攻撃≫の判定は行わず、「クリティカル」が出たものとして扱い、目標にされたキャラクターは回避判定を行います。回避判定に失敗すると、使用した「武器」の威力の最大値でダメージを与えることができます（例えば【近接武器】で≪攻撃≫を行った場合、威力は1D6なので6ダメージ。「クリティカル」の効果で二倍になるので、12の物理ダメージを与えることができます）。</li>
 </ul>
 </li>
 <li>
@@ -674,5 +356,5 @@ code {
 <p>【死亡】したキャラクターが最後に所持していた「改造」が施された「武器」、「アイテム」、「報酬p・経験p」は「遺品」として扱われ、自分の他のキャラクター、もしくは新しく作成するキャラクターに渡すことができます。この時「遺品」が渡されたキャラクターと【死亡】したキャラクターに、家族や師弟など何らかの関係を設定してください。</p>
 <p>また、NPCの「生命力」が0になった場合、原則として「生命力」を0にしたキャラクターが、そのキャラクターが「行動不能」になったか【死亡】したかを決定してください（「生命力」を0にしたキャラクターが二人以上いた場合、話し合って決めてください）。NPCが死亡した場合、原則として「最後の一撃」、「遺言」、「貸与」は使用されません。</p>
 
-</body>
-</html>
+    </body>
+    </html>

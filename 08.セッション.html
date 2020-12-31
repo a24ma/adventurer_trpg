@@ -1,379 +1,37 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>08.セッション.md</title>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-
-<style>
-/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-body {
-	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
-	font-size: var(--vscode-markdown-font-size, 14px);
-	padding: 0 26px;
-	line-height: var(--vscode-markdown-line-height, 22px);
-	word-wrap: break-word;
-}
-
-#code-csp-warning {
-	position: fixed;
-	top: 0;
-	right: 0;
-	color: white;
-	margin: 16px;
-	text-align: center;
-	font-size: 12px;
-	font-family: sans-serif;
-	background-color:#444444;
-	cursor: pointer;
-	padding: 6px;
-	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
-}
-
-#code-csp-warning:hover {
-	text-decoration: none;
-	background-color:#007acc;
-	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
-}
-
-body.scrollBeyondLastLine {
-	margin-bottom: calc(100vh - 22px);
-}
-
-body.showEditorSelection .code-line {
-	position: relative;
-}
-
-body.showEditorSelection .code-active-line:before,
-body.showEditorSelection .code-line:hover:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 0;
-	left: -12px;
-	height: 100%;
-}
-
-body.showEditorSelection li.code-active-line:before,
-body.showEditorSelection li.code-line:hover:before {
-	left: -30px;
-}
-
-.vscode-light.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.15);
-}
-
-.vscode-light.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(0, 0, 0, 0.40);
-}
-
-.vscode-light.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-dark.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.4);
-}
-
-.vscode-dark.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 255, 255, 0.60);
-}
-
-.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-.vscode-high-contrast.showEditorSelection .code-active-line:before {
-	border-left: 3px solid rgba(255, 160, 0, 0.7);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line:hover:before {
-	border-left: 3px solid rgba(255, 160, 0, 1);
-}
-
-.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
-	border-left: none;
-}
-
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-	outline: 1px solid -webkit-focus-ring-color;
-	outline-offset: -1px;
-}
-
-hr {
-	border: 0;
-	height: 2px;
-	border-bottom: 2px solid;
-}
-
-h1 {
-	padding-bottom: 0.3em;
-	line-height: 1.2;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-h1, h2, h3 {
-	font-weight: normal;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-table > thead > tr > th {
-	text-align: left;
-	border-bottom: 1px solid;
-}
-
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
-}
-
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
-}
-
-blockquote {
-	margin: 0 7px 0 5px;
-	padding: 0 16px 0 10px;
-	border-left-width: 5px;
-	border-left-style: solid;
-}
-
-code {
-	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-	font-size: 1em;
-	line-height: 1.357em;
-}
-
-body.wordWrap pre {
-	white-space: pre-wrap;
-}
-
-pre:not(.hljs),
-pre.hljs code > div {
-	padding: 16px;
-	border-radius: 3px;
-	overflow: auto;
-}
-
-pre code {
-	color: var(--vscode-editor-foreground);
-	tab-size: 4;
-}
-
-/** Theming */
-
-.vscode-light pre {
-	background-color: rgba(220, 220, 220, 0.4);
-}
-
-.vscode-dark pre {
-	background-color: rgba(10, 10, 10, 0.4);
-}
-
-.vscode-high-contrast pre {
-	background-color: rgb(0, 0, 0);
-}
-
-.vscode-high-contrast h1 {
-	border-color: rgb(0, 0, 0);
-}
-
-.vscode-light table > thead > tr > th {
-	border-color: rgba(0, 0, 0, 0.69);
-}
-
-.vscode-dark table > thead > tr > th {
-	border-color: rgba(255, 255, 255, 0.69);
-}
-
-.vscode-light h1,
-.vscode-light hr,
-.vscode-light table > tbody > tr + tr > td {
-	border-color: rgba(0, 0, 0, 0.18);
-}
-
-.vscode-dark h1,
-.vscode-dark hr,
-.vscode-dark table > tbody > tr + tr > td {
-	border-color: rgba(255, 255, 255, 0.18);
-}
-
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&#x300C;&#x7C21;&#x6613;&#x578B;&#x30B7;&#x30CA;&#x30EA;&#x30AA;&#x300D;</title>
+        <style>
 </style>
-
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
-/* Tomorrow Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-
-/* Tomorrow Comment */
-.hljs-comment,
-.hljs-quote {
-	color: #8e908c;
-}
-
-/* Tomorrow Red */
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-regexp,
-.hljs-deletion {
-	color: #c82829;
-}
-
-/* Tomorrow Orange */
-.hljs-number,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-	color: #f5871f;
-}
-
-/* Tomorrow Yellow */
-.hljs-attribute {
-	color: #eab700;
-}
-
-/* Tomorrow Green */
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-	color: #718c00;
-}
-
-/* Tomorrow Blue */
-.hljs-title,
-.hljs-section {
-	color: #4271ae;
-}
-
-/* Tomorrow Purple */
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #8959a8;
-}
-
-.hljs {
-	display: block;
-	overflow-x: auto;
-	color: #4d4d4c;
-	padding: 0.5em;
-}
-
-.hljs-emphasis {
-	font-style: italic;
-}
-
-.hljs-strong {
-	font-weight: bold;
-}
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
-
-<style>
-/*
- * Markdown PDF CSS
- */
-
- body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
-	padding: 0 12px;
-}
-
-pre {
-	background-color: #f8f8f8;
-	border: 1px solid #cccccc;
-	border-radius: 3px;
-	overflow-x: auto;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-}
-
-pre:not(.hljs) {
-	padding: 23px;
-	line-height: 19px;
-}
-
-blockquote {
-	background: rgba(127, 127, 127, 0.1);
-	border-color: rgba(0, 122, 204, 0.5);
-}
-
-.emoji {
-	height: 1.4em;
-}
-
-code {
-	font-size: 14px;
-	line-height: 19px;
-}
-
-/* for inline code */
-:not(pre):not(.hljs) > code {
-	color: #C9AE75; /* Change the old color so it seems less like an error */
-	font-size: inherit;
-}
-
-/* Page Break : use <div class="page"/> to insert page break
--------------------------------------------------------- */
-.page {
-	page-break-after: always;
-}
-
-</style>
-
-<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-</head>
-<body>
-  <script>
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
-          ? 'dark'
-          : 'default'
-    });
-  </script>
-<h1 id="%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA%E3%81%AE%E7%A8%AE%E9%A1%9E">シナリオの種類</h1>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="シナリオの種類">シナリオの種類</h1>
 <p>シナリオには大きく分けて二種類あります。</p>
-<h2 id="%E7%B0%A1%E6%98%93%E5%9E%8B%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA">「簡易型シナリオ」</h2>
+<h2 id="簡易型シナリオ">「簡易型シナリオ」</h2>
 <p>「簡易型シナリオ」はPCの行動をある程度制限し、プレイ時間は比較的短時間で終わり、セッションを最後までプレイしやすいシナリオです。</p>
 <p>TRPG初心者でもやりやすいシナリオだと思います。</p>
-<h2 id="%E8%87%AA%E7%94%B1%E5%9E%8B%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA">「自由型シナリオ」</h2>
+<h2 id="自由型シナリオ">「自由型シナリオ」</h2>
 <p>「自由型シナリオ」はPCの行動をほとんど制限しません。プレイ時間はシナリオで大きく変動し、プレイヤーの行動次第ではセッションを最後までプレイできない可能性の高くなってくるシナリオです。</p>
 <p>TRPGにある程度慣れたプレイヤーにおすすめのシナリオです。</p>
-<h1 id="%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E6%B5%81%E3%82%8C">セッションの流れ</h1>
+<h1 id="セッションの流れ">セッションの流れ</h1>
 <p>一つのシナリオをプレイする事を「セッション」と呼びます。</p>
 <p>セッションの流れは以下の通りになります。</p>
 <table>
@@ -480,41 +138,41 @@ code {
 </tr>
 </tbody>
 </table>
-<h1 id="%E4%BE%9D%E9%A0%BC%E3%81%A8%E6%83%B3%E3%81%84">【依頼】と【想い】</h1>
+<h1 id="依頼と想い">【依頼】と【想い】</h1>
 <p>シナリオでは、セッション中、プレイヤーが目指すべき目標が設定されます。これを【依頼】と呼び、プレイヤーはこの【依頼】を達成する事を目標に行動します。</p>
 <p>また、セッションの開始時に、プレイヤーはそのセッション中にやりたいことを決めます。これを【想い】と呼びます。【想い】を設定する時は、紙に書いてGMにのみその内容を教え、GMがその【想い】に問題がないと判断すれば、プレイヤーは自分のキャラクターにその【想い】を設定します。また、シナリオによっては、予めキャラクターに【想い】が設定されている場合があります。この場合その【想い】をキャラクターに設定してください。</p>
 <p>【依頼】は基本的にプレイヤー全員の目標として、公開情報として扱われますが、【想い】は秘匿情報として扱われ、他のプレイヤーに分からないようにしてください（【想い】を書いた紙を裏向きに伏せて置いたり、二つ折りにして内容を見えないようにすると良いでしょう）。</p>
-<h1 id="%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E5%89%8D%E3%81%AB">セッションを始める前に</h1>
+<h1 id="セッションを始める前に">セッションを始める前に</h1>
 <p>セッションを開始する前に、セッションに参加するプレイヤーにその「シナリオの形式」と「シナリオの特殊ルール」、またそのシナリオのギミックでキャラクターが「死亡」する可能性がある場合など、これらの事を必ず告知してください。</p>
 <p>それらの告知が終わったら、プレイヤーは使用するキャラクターを作成するか、使用する継続キャラクターを選択してください。継続キャラクターを使用するプレイヤーが居る場合、「昇格試験」に挑戦するプレイヤーがいないかの確認をしてください。</p>
 <p>また、プレイヤーは自分のキャラクターに、「武器」や「アイテム」とは別に、「所持品」を持たせることができます。「所持品」は「武器」や「アイテム」とは違い、特別な効果を持ちません。ですが、「所持品」によっては何らかの判定に補正を加えたり、シナリオを有利に進めることができる物があるかもしれません（この判断はGMが行ってください）。「所持品」を持たせる場合、その内容を決めてGMに問題が無いか確認をしてください。問題が無ければその「所持品」を持たせられます。</p>
-<h1 id="%E3%82%B7%E3%83%BC%E3%83%B3">シーン</h1>
+<h1 id="シーン">シーン</h1>
 <p>「シーン」とは、シナリオ中、キャラクターが実際に行動を行っている場面のことを言います。「シーン」には二種類あり、「ドラマシーン」と「バトルシーン」があります。</p>
 <p>「ドラマシーン」は、キャラクターの日常や探索を行っているシーンです。</p>
 <p>「バトルシーン」は、キャラクター同士の戦闘を行うシーンです。</p>
-<h1 id="l%E3%83%AA%E3%83%9F%E3%83%83%E3%83%88">L（リミット）</h1>
+<h1 id="lリミット">L（リミット）</h1>
 <p>ゲーム内の時間の経過を表すのに「L（リミット）」と言う単位を使用します。何らかの判定、「スキル・魔法」、「切り札」は1Lが経過しないと基本的に再度同じ判定、もしくは同じ「スキル・魔法」、「切り札」を使用する事はできません。</p>
 <p>「簡易型シナリオ」では、「ドラマシーン」中、サイクルが終了した時点で1Lが経過したものとして処理します（１サイクル目のどのタイミングで「スキル・魔法」を使用しても、２サイクル目の開始時点から、同じ「スキル・魔法」を使用することができるようになります）。</p>
 <p>「自由型シナリオ」では、「ドラマシーン」中、ゲーム内時間約一時間が1Lとなります。ただしこれは、</p>
 <p>「バトルシーン」では、ラウンドが終了した時点で1Lが経過したものとして処理します。</p>
 <p>また、「ドラマシーン」と「バトルシーン」は別の時間軸として扱います。例えば、「ドラマシーン」中に「スキル・魔法」を使用して、直後に「バトルシーン」になった場合、「ドラマシーン」の1Lが経過していなくても、その「バトルシーン」で同じ「スキル・魔法」を使用できます。ただしこの時、「バトルシーン」が終了した後に、「ドラマシーン」で「スキル・魔法」を使用した時から1Lが経過していなければ、同じ「スキル・魔法」を使用することはできません。</p>
-<h1 id="%E5%B0%8E%E5%85%A5">導入</h1>
+<h1 id="導入">導入</h1>
 <p>「導入」では、「ドラマシーン」を行い、PC達にシナリオのおおまかな流れと【依頼】を公開します。「簡易型シナリオ」の場合、クライマックスフェイズ到達条件なども一緒に公開してください。</p>
-<h1 id="%E6%8E%A2%E7%B4%A2%E3%83%95%E3%82%A7%E3%82%A4%E3%82%BA">探索フェイズ</h1>
+<h1 id="探索フェイズ">探索フェイズ</h1>
 <p>「探索フェイズ」では、「ドラマシーン」や「バトルシーン」を行い、シナリオを進めていきます。探索フェイズでの主な目的は、【情報】を集める事とクライマックスフェイズに到達することになります。</p>
 <p>情報を集めるため「ドラマシーン」中に行う技能判定を、まとめて「情報判定」と呼びます。</p>
-<h1 id="%E7%B0%A1%E6%98%93%E5%9E%8B%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA">「簡易型シナリオ」</h1>
+<h1 id="簡易型シナリオ-1">「簡易型シナリオ」</h1>
 <p>「簡易型シナリオ」では、導入が終わった後に、探索フェイズに移行します。</p>
 <p>「簡易型シナリオ」の探索フェイズでは、プレイヤーを一人決め、そのプレイヤー主導で「ドラマシーン」を行います。このプレイヤーの事を「シーンプレイヤー」と呼びます。</p>
 <p>「シーンプレイヤー」は、自分の「ドラマシーン」中に、「情報を探る」、「戦闘を仕掛ける」、「「生命力」の回復」などの行為のいずれかを一度行えます。また、「「不調」の回復判定」、「スキル・魔法」などは、指定されているタイミングで行えます。</p>
 <p>「シーンプレイヤー」は、自分の「ドラマシーン」を開始する時に、その「シーン」に登場してほしいPCがいる場合、そのプレイヤーを指名して相手がそれに応じれば、そのPCを「シーン」に登場させることができます。また、他のプレイヤーが「シーン」に登場する事を望み、「シーンプレイヤー」が許可すれば、そのPCは「シーン」に登場する事ができます。</p>
-<h2 id="%E6%83%85%E5%A0%B1%E3%82%92%E6%8E%A2%E3%82%8B">「情報を探る」</h2>
+<h2 id="情報を探る">「情報を探る」</h2>
 <p>「簡易型シナリオ」では、【情報】を手に入れる事の出来る「ロケーション」が設定されています。「ロケーション」に対してロールプレイを行い、そのロールプレイに応じた技能で情報判定を行い、その判定に成功した場合、D66で「調査p」を獲得できます。「ロケーション」ごとに獲得できる【情報】が設定されており、その【情報】を獲得するのに「調査p」が必要になります。獲得した「調査p」は、「ロケーション」に設定された【情報】に割り振ります（必要な「調査p」を超えた場合、余った「調査p」は他の「ロケーション」の【情報】に割り振ることができます）。【情報】を獲得した「ロケーション」に対しては、以降「情報を探る」事ができません。全ての【情報】を獲得すると「情報を探る」事は出来なくなります。</p>
 <p>また、他のプレイヤーが、自分の所持していない【情報】を獲得している場合、そのPCに対して「情報を探る」事で、その【情報】を一つ獲得できます（ただし、同じ「シーン」に登場していない場合、「情報を探る」事は出来ません）。この時「調査p」を獲得する事はできません。また、その【情報】に既に「調査p」が割り振られている場合、その「調査p」を他の【情報】に割り振り直してください。</p>
 <p>全ての【情報】を獲得して「調査p」が余った場合、余剰分として記録しておいてください。</p>
-<h2 id="%E6%88%A6%E9%97%98%E3%82%92%E4%BB%95%E6%8E%9B%E3%81%91%E3%82%8B">「戦闘を仕掛ける」</h2>
+<h2 id="戦闘を仕掛ける">「戦闘を仕掛ける」</h2>
 <p>同じ「シーン」に登場しているキャラクターに対し＜奇襲＞の技能で技能判定を行い、その判定に成功すれば「バトルシーン」を開始することができます。また、技能判定を行わなくても、両者が戦闘に合意していれば「バトルシーン」を開始することができます。</p>
-<h2 id="%E7%94%9F%E5%91%BD%E5%8A%9B%E3%81%AE%E5%9B%9E%E5%BE%A9">「「生命力」の回復」</h2>
+<h2 id="生命力の回復">「「生命力」の回復」</h2>
 <p>キャラクターの「生命力」が減少している場合、「「生命力」の回復」を行う事ができます。何らかのロールプレイを行い、そのロールプレイに応じた技能で回復判定を行い、その判定に成功していた場合、「生命力」を1D6回復する事ができます。</p>
 <p>セッションに参加しているプレイヤーは一人ずつ「シーンプレイヤー」として「ドラマシーン」を行い、全員が「シーン」での行動を行う一連の流れを「サイクル」と言います。</p>
 <p>「簡易型シナリオ」の探索フェイズには、発生する「サイクル」の回数が設定されており、その回数「サイクル」が行われると、「作戦会議」に移行します。</p>
@@ -522,59 +180,60 @@ code {
 <p>誰も獲得していない【情報】があれば、プレイヤー同士で余剰の「調査p」を持ちより、合計した「調査p」を使用してその【情報】を公開情報にする事ができます（獲得する事は出来ません）。また、合計した「調査p」で【情報】を公開情報にした時、その「調査p」が余った場合は、持ちよったプレイヤーに全員が余った「調査p」を獲得できます。</p>
 <p>「作戦会議」中、はプレイヤー間で【情報】の受け渡しができます。</p>
 <p>「作戦会議」で全てのプレイヤーの準備が完了したら、クライマックスフェイズに移行します。</p>
-<h1 id="%E8%87%AA%E7%94%B1%E5%9E%8B%E3%82%B7%E3%83%8A%E3%83%AA%E3%82%AA">「自由型シナリオ」</h1>
+<h1 id="自由型シナリオ-1">「自由型シナリオ」</h1>
 <p>「自由型シナリオ」では、導入が終わった時点で、そのまま探索フェイズの「ドラマシーン」を継続していきます。</p>
 <p>「自由型シナリオ」の探索フェイズでは、提示されている【情報】からプレイヤーは次にやるべきことを判断し、新たな【情報】などを求めてキャラクターを動かします。キャラクターは自由に行動ができますが、判断を誤れば「詰み」につながる可能性も大きくなります。</p>
 <p>「自由型シナリオ」の探索フェイズを進めていく中で、様々な場面で技能判定を行う事があります。それらの判定で、【情報】又は、【情報】を手に入れるための手がかりを手に入れた場合、D66で「調査p」を獲得できます。</p>
 <p>「自由型シナリオ」では、情報の受け渡しや、「戦闘を仕掛ける」、「「不調」の回復判定」などの行為は、同じ「シーン」に登場していれば好きなタイミングで行う事ができます。「自由型シナリオ」で同じ「シーン」に登場しているかの判定は、「ドラマシーン」中、同じ場所にその「シーン」の行われている場所に居るかどうかになります。</p>
-<h1 id="%E6%83%85%E5%A0%B1%E3%81%AE%E5%8F%97%E3%81%91%E6%B8%A1%E3%81%97%E3%81%A8%E6%83%85%E5%A0%B1%E3%81%AE%E7%A8%AE%E9%A1%9E">【情報】の受け渡しと【情報】の種類</h1>
+<h1 id="情報の受け渡しと情報の種類">【情報】の受け渡しと【情報】の種類</h1>
 <p>シナリオを進めていく中で、プレイヤーはいくつもの【情報】を入手する事があります。入手した【情報】を他のプレイヤーに渡したり、又は受け取ったりすることを「【情報】の受け渡し」と言います。</p>
 <p>【情報】の受け渡しで入手した【情報】は、獲得した扱いとはなりません。【情報】を獲得した扱いとなるのは、情報判定を行ってそれに成功し、【情報】を入手した場合か、「戦闘を仕掛ける」で「バトルシーン」を行い、勝者となって戦利品に【情報】を指定した場合となります。</p>
 <p>また、【情報】には幾つかの種類が存在します。</p>
-<h2 id="%E7%A7%98%E5%8C%BF%E6%83%85%E5%A0%B1">秘匿情報</h2>
+<h2 id="秘匿情報">秘匿情報</h2>
 <ul>
 <li>【情報】を入手することでその【情報】の内容を知ることができます。</li>
 <li>誰かがこの種類の【情報】を入手しても、他のプレイヤーはその内容を知る事は出来ません。</li>
 </ul>
-<h2 id="%E5%85%AC%E9%96%8B%E6%83%85%E5%A0%B1">公開情報</h2>
+<h2 id="公開情報">公開情報</h2>
 <ul>
 <li>誰かがこの種類の【情報】を入手した時、全てのプレイヤーがその【情報】の内容を知ることができます。</li>
 <li>初めてその【情報】を公開情報にしたプレイヤーが【情報】を獲得した扱いになります。</li>
 <li>自分が初めから持つ【情報】を公開情報にしたとしても、それを獲得した扱いにはなりません。</li>
 </ul>
-<h2 id="%E5%80%8B%E5%88%A5%E6%83%85%E5%A0%B1">個別情報</h2>
+<h2 id="個別情報">個別情報</h2>
 <ul>
 <li>この種類の【情報】の内容は、誰かがその【情報】を入手した時に公開されるか否かが、【情報】によって設定されています。</li>
 <li>誰かがこの種類の【情報】を入手した時、初めてその【情報】を入手したキャラクターがその個別情報の所有者になります。</li>
 <li>個別情報の所有者は、一つの個別情報につき一人しかなる事ができません。</li>
 <li>所有者の存在する個別情報に対しても、「情報を探る」事ができます。</li>
+<li>個別情報の所有者に対して、戦闘で勝利して戦利品に個別情報を指定すると、その個別情報の所有者は、戦利品に個別情報を指定したキャラクターになります。</li>
 <li>セッションの終了時、その個別情報の所有者となっていたキャラクターが、その【情報】を獲得した扱いとなります。</li>
 </ul>
-<h1 id="%E5%88%A4%E5%AE%9A%E8%A3%9C%E5%8A%A9%E3%81%A8%E9%81%93%E5%85%B7%E8%A3%9C%E6%AD%A3">判定補助と道具補正</h1>
+<h1 id="判定補助と道具補正">判定補助と道具補正</h1>
 <p>「ドラマシーン」中、誰かが「情報を探る」で技能判定を行う時、他のプレイヤーは自分のキャラクターが修得している技能を使用して、判定の補助を行う事を「判定補助」と呼びます。この時、どのように補助を行ったかをGMに説明してください。その内容に問題がないとGMが判断すれば「判定補助」を行う事ができます（例えば、誰かに道案内するために＜先導＞で技能判定を行なおうとしているPCに対し、「＜地理＞で付近の地形を教えてそれを補佐した」と言った理由であれば「判定補助」を行う事ができます）。</p>
 <p>「判定補助」を行うと、技能判定を行ったプレイヤーの判定に、「判定補助」を行った人数分のダイスが追加されます。この時、判定は(2+n)D6となります（n＝「判定補助」の参加人数）。</p>
 <p>「判定補助」を行ったことでそのプレイヤーが「調査p」を獲得した時、その半分の「調査p」を「判定補助」を行ったプレイヤー全員が獲得する事ができます。</p>
 <p>「判定補助」を行った結果、その判定が「スペシャル」や「ファンブル」になった時、その効果は「判定補助」を行った全てのプレイヤーにも発生します（「ファンブル」になった時、技能判定を行ったプレイヤーが「トラブル表」から「ファンブル」の効果を決定してください）。</p>
 <p>また、「所持品」を使用することで、自分が「情報を探る」で技能判定を行う時に修正を加えることができ、これを「道具補正」と言います。「道具補正」を行う場合、どの「所持品」を、どのように使用したかGMに説明してください。その内容に問題がないとGMが判断すれば「道具補正」を適用できます（例えば、壊れた機械を直すために＜修理＞で技能判定を行なう時、「「所持品」にある工具箱で、専用の工具を使って直します」と言った理由であれば「道具補正」を適用して+1の修正を加える事ができます）。</p>
-<h1 id="%E5%AF%BE%E6%8A%97%E5%88%A4%E5%AE%9A">対抗判定</h1>
+<h1 id="対抗判定">対抗判定</h1>
 <p>自分に対して行われた技能判定が成功した時、その判定に対して対抗する事ができる場面があります。これを「対抗判定」と呼びます。</p>
 <p>「対抗判定」を行う時、GMがその判定に使用する技能を指定します（例えば、他のキャラクターが、＜拷問＞の技能を自分に対して使用して技能判定に成功し、自分が拷問を受けて「対抗判定」を行う時、GMは「対抗判定」に＜忍耐＞の技能を指定します）。「対抗判定」を行うプレイヤーは、相手の判定の達成値を目標値とし、その技能で技能判定を行います。</p>
 <p>「対抗判定」に成功すれば、相手の判定を失敗したことにできます。</p>
-<h1 id="%E6%8E%A2%E7%B4%A2%E3%83%95%E3%82%A7%E3%82%A4%E3%82%BA%E4%B8%AD%E3%81%AE%E8%A1%8C%E5%8B%95%E4%B8%8D%E8%83%BD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">探索フェイズ中の「行動不能」について</h1>
-<p>「生命力」が0になると、そのキャラクターは原則「行動不能」になります。</p>
+<h1 id="探索フェイズ中の行動不能について">探索フェイズ中の「行動不能」について</h1>
+<p>キャラクターの「生命力」が0になった場合、そのキャラクターは基本的には「行動不能」になります。ただし、シナリオの取り決めやGMの特殊な裁定があった場合はそれに従います。</p>
 <p>探索フェイズ中「行動不能」になったキャラクターは、1L経過するまで行動できません。1Lが経過すると、「生命力」が１だけ回復して復活します。</p>
 <p>また、他のプレイヤーは同じシーンに登場している「行動不能」のキャラクターに対して「復活判定」を行う事ができます。「復活判定」には＜奉仕＞の技能を使用し、「「不調」の回復判定」と同じタイミングで行えます。「復活判定」に成功すると「生命力」が10%回復して復活します。</p>
-<h1 id="%E3%82%AF%E3%83%A9%E3%82%A4%E3%83%9E%E3%83%83%E3%82%AF%E3%82%B9%E3%83%95%E3%82%A7%E3%82%A4%E3%82%BA">クライマックスフェイズ</h1>
+<h1 id="クライマックスフェイズ">クライマックスフェイズ</h1>
 <p>「クライマックスフェイズ」は、シナリオの最終局面です。参加しているPCの一人でも、クライマックスフェイズ到達条件を満たしていた場合、全てのキャラクターがクライマックスフェイズに参加できます。</p>
 <p>クライマックスフェイズでは、基本的にそのシナリオの「ボス」が設定されており、バトルシーンが開始されます。ただし、シナリオによってはこのバトルシーンを回避できたり、「ボス」が設定されておらず、バトルシーンの発生しないシナリオも存在します。ですが、セッションに参加しているPCが二人以上おり、その内の一人でも戦闘を望んでいる場合、クライマックスフェイズでのバトルシーンを発生させることができます（バトルシーンを発生させるべきかどうかはGMが判断を行って下さい）。</p>
 <p>クライマックスフェイズで発生するバトルシーンは、全PC強制参加です。</p>
-<h1 id="%E3%82%A8%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0">エンディング</h1>
+<h1 id="エンディング">エンディング</h1>
 <p>「エンディング」はシナリオの終わりです。シナリオに設定されているエンディングを、クライマックスフェイズの内容などを考慮して「ドラマシーン」の演出を行って下さい。</p>
-<h1 id="%E6%83%B3%E3%81%84%E3%81%AE%E5%8D%94%E5%8A%9B%E3%81%A8%E5%A6%A8%E5%AE%B3">【想い】の協力と妨害</h1>
+<h1 id="想いの協力と妨害">【想い】の協力と妨害</h1>
 <p>セッション中、他のキャラクターの【想い】を知る事があります。そのキャラクターの【想い】に対して、協力か妨害を行う事ができます。</p>
 <p>相手の【想い】に対して協力と妨害のどちらを行ったかは、セッションの終了時、そのキャラクターが【想い】を達成していたかどうかで処理します。【想い】を達成していた場合、その【想い】に協力したことになり、「報酬p」を１獲得する事ができます。【想い】を達成していなかった場合、その【想い】を妨害したことになり、「報酬p」を１獲得する事ができます。</p>
 <p>また、自分の【想い】が他のプレイヤーに知られた場合、その【想い】を達成していても、「報酬p」は本来獲得できる２ではなく、１しか獲得する事ができません。</p>
-<h1 id="%E5%A0%B1%E9%85%AC%E3%81%A8%E7%B5%8C%E9%A8%93">報酬と経験</h1>
+<h1 id="報酬と経験">報酬と経験</h1>
 <p>シナリオが終了したら、そのシナリオ中の特定の行動に応じて、「報酬p（ポイント）」と「経験p（ポイント）」を獲得する事ができます。</p>
 <table>
 <thead>
@@ -683,15 +342,15 @@ code {
 </tr>
 </tbody>
 </table>
-<h1 id="%E6%98%87%E6%A0%BC%E8%A9%A6%E9%A8%93">昇格試験</h1>
+<h1 id="昇格試験">昇格試験</h1>
 <p>プレイヤーは、キャラクターのランクを上昇させるのに、必要な「報酬p」を使用して「昇格試験」に挑戦する事ができます。「昇格試験」に挑戦する場合、GMに「昇格試験」に挑戦する事を伝えてください。</p>
 <p>「昇格試験」に挑戦する事を宣言したら、そのキャラクターにとってそのシナリオの【依頼】が「昇格試験」の内容となります。また、【想い】の内容は「「昇格試験」に合格する」に固定されます（シナリオで【想い】が設定されている場合、その【想い】の内容に追加されます）。そのプレイヤーが「昇格試験」に挑戦する事は、他のプレイヤーも知っているでしょうが、そのプレイヤーのキャラクターの【想い】は、通常通り秘匿情報として扱われます。</p>
 <p>そのシナリオの【依頼】を達成できていれば、「昇格試験」は合格となり、キャラクターのランクを一つ上昇させることができます。【依頼】を達成する事ができなければ、「昇格試験」は不合格となり、「昇格試験」に挑戦するのに使用した「報酬p」は、そのキャラクターに半分だけ返却されます。</p>
-<h1 id="%E8%87%B4%E5%91%BD%E7%9A%84%E3%81%AA%E5%A4%B1%E6%95%97">致命的な失敗</h1>
+<h1 id="致命的な失敗">致命的な失敗</h1>
 <p>【依頼】の達成よりも前に、クライマックスフェイズに辿り着く事すら出来なければ、そのシナリオは「詰み」となり、致命的な失敗となります。</p>
 <p>「詰み」となった場合、クライマックスフェイズを行わずにそのままエンディングとなります。その後、「報酬p・経験pの獲得」の処理を行いますが、この時「報酬p」は獲得できず、逆に所持している「報酬p」が10減少します。また、キャラクターのランクが「アンバー」以上で、所持している「報酬p」が0の時に「詰み」になると、そのキャラクターが次に参加したシナリオは「維持試験」となります。</p>
 <p>「維持試験」に合格すれば、現在のランクを維持する事ができます。不合格となった場合、そのセッションでどれだけ「報酬p」を獲得しても、キャラクターのランクが一つ下降します。その他は「昇格試験」と同様に扱われます。</p>
-<p>また、「維持試験」に不合格してランクが降格した時、修得している「特定のランク以上」が修得条件となっている「力・知恵・心」や「スキル・魔法」などは、未修得になります。</p>
+<p>また、「維持試験」に不合格してランクが降格した時、修得している「特定のランク以上」が修得条件となっている「ポテンシャル」や「スキル・魔法」などは、未修得になります。</p>
 
-</body>
-</html>
+    </body>
+    </html>
