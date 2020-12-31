@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04.力・知恵・心.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>「力・知恵・心」とは、キャラクターが持つ能力で、セッション中常にその効果を発揮します。</p>
+<p>「力・知恵・心」を修得する時、原則として、同じ「力・知恵・心」を二つ以上修得する事はできません（「※」が付いているものは、二つ以上修得する事ができます）。</p>
+<h1 id="%E5%8A%9B">「力」</h1>
+<p>主に戦闘などに関する能力です。主に「混血」でしか修得出来ないものが存在します。</p>
+<h2 id="%E9%AD%94%E6%B3%95%E4%BD%BF%E3%81%84">魔法使い</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>「魔法」を使用することができる。</li>
+<li>「魔法」に対して≪回避≫を行う事ができる。</li>
+</ul>
+<h2 id="%E8%BB%BD%E6%A5%AD">軽業</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>射程5以内の「武器」による攻撃に対し、＜健脚＞の技能で判定を行い、判定に成功するとその攻撃を≪回避≫をしたことにできる。</li>
+<li>この判定は「武器」を所持していると行えない。</li>
+</ul>
+<h2 id="%E6%88%91%E6%B5%81">我流</h2>
+<ul>
+<li>修得条件：ランク「アンバー」以上</li>
+<li>この「力」を修得した時、「武器」を一種類選ぶ。</li>
+<li>その「武器」を使用する時、判定に+1の修正を加える。</li>
+</ul>
+<h2 id="%E5%A5%A5%E3%81%AE%E6%89%8B">奥の手</h2>
+<ul>
+<li>修得条件：ランク「アンバー」以上</li>
+<li>この「力」を修得しているキャラクターの「切り札」は公開情報にならない。</li>
+<li>この「力」を修得しているキャラクターが「切り札」を使用した時、同じシーンに登場しているキャラクターは＜分析＞の技能で判定を行う。これを「認識判定」と呼ぶ。</li>
+<li>判定に成功したキャラクターのみ、その「切り札」の情報を入手し、以降妨害判定を行う事ができる（情報を獲得したことにはならない）。</li>
+</ul>
+<h2 id="%E6%AD%A6%E9%81%93%E3%81%AE%E5%BF%83%E5%BE%97">武道の心得</h2>
+<ul>
+<li>修得条件：「混血」ではない</li>
+<li>【素手】の威力を1D6に変更する。</li>
+<li>この「力」を修得しているキャラクターの【素手】による攻撃は、【素手】でしか≪回避≫する事ができない。</li>
+<li>この「力」を修得しているキャラクターの【素手】による攻撃は、「力・軽業」での≪回避≫を行う事ができる。</li>
+<li>「力・太古の息吹」などで【素手】の扱いを変更していると、この「力」を修得しているキャラクターの【素手】による攻撃を、【素手】で≪回避≫する事ができなくなる。</li>
+</ul>
+<h2 id="%E6%AD%A6%E3%81%AE%E9%A0%82">武の頂</h2>
+<ul>
+<li>修得条件：「混血」ではない、ランク「ラピス」以上</li>
+<li>この「力」を修得しているキャラクターの「武器」による攻撃は、同じ種類の「武器」でしか≪回避≫する事ができない。</li>
+<li>この「力」を修得しているキャラクターの「武器」による攻撃は、「力・軽業」での≪回避≫を行う事ができない。</li>
+</ul>
+<h2 id="%E5%A4%AA%E5%8F%A4%E3%81%AE%E6%81%AF%E5%90%B9">太古の息吹</h2>
+<ul>
+<li>修得条件：【古の血族】の混血</li>
+<li>【素手】を【範囲武器】の扱いに変更する。</li>
+</ul>
+<h2 id="%E7%B5%B6%E5%AF%BE%E9%A0%98%E5%9F%9F">絶対領域</h2>
+<ul>
+<li>修得条件：【古の血族】の混血、ランク「トパーズ」以上</li>
+<li>「得意領域」で無視できるレンジが、左右に一マスずつ増える。</li>
+</ul>
+<h2 id="%E5%B0%82%E5%A3%B2%E7%89%B9%E8%A8%B1">専売特許</h2>
+<ul>
+<li>修得条件：【古の血族】の混血</li>
+<li>＜経済＞の技能を修得していると、自分が修得している「スキル・魔法」を、他のキャラクターが使用した時、その「スキル・魔法」の指定技能で判定を行い、判定に成功すれば、その「スキル・魔法」の効果を無効化する事ができる。</li>
+<li>この判定は1L経過しないと、再度行う事ができない。</li>
+</ul>
+<h2 id="%E9%8B%AD%E5%88%A9%E3%81%AA%E7%88%AA%E7%89%99">鋭利な爪牙</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>【素手】を【近接武器】の扱いに変更する（「武器」の種類は【素手】から変更されない）。</li>
+</ul>
+<h2 id="%E6%AF%92%E8%85%BA">毒腺</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>自分が攻撃の目標に指定され、その攻撃の命中判定が失敗した時、攻撃を行ったキャラクターに特殊ダメージを１与える。</li>
+</ul>
+<h2 id="%E7%B8%84%E5%BC%B5%E3%82%8A">縄張り</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>この「力」を修得した時、「フィールド表」から任意の「フィールド」を一つ選択する。選択した「フィールド」では、あらゆる判定に+1の修正が加わり、属性の「デバフ」の効果を受けなくなる。</li>
+</ul>
+<h2 id="%E9%A0%91%E4%B8%88%E3%81%AA%E8%82%89%E4%BD%93">頑丈な肉体</h2>
+<ul>
+<li>修得条件：【死の血族】の混血</li>
+<li>【素手】を【防具】の扱いに変更する（「武器」の種類は【素手】から変更されない）。</li>
+</ul>
+<h2 id="%E4%B8%8D%E6%AD%BB%E8%BA%AB">不死身</h2>
+<ul>
+<li>修得条件：【死の血族】の混血</li>
+<li>戦闘中、自分がダメージを受けて「生命力」が0になった時、＜忍耐＞の技能で判定を行い、判定に成功すると「生命力」を１だけ残して耐える（ダメージの処理は変更されない）。</li>
+<li>この判定は1L経過しないと、再度行う事ができない。</li>
+</ul>
+<h2 id="%E5%90%B8%E8%A1%80">吸血</h2>
+<ul>
+<li>修得条件：【死の血族】の混血、ランク「トパーズ」以上</li>
+<li>戦闘中、自分がダメージを与えて誰かの「生命力」を0にした時、「生命力」を1D6回復できる。</li>
+<li>この「力」は1L経過しないと、再度発動できない。</li>
+</ul>
+<h2 id="%E5%90%B8%E7%94%9F">吸生</h2>
+<ul>
+<li>修得条件：【死の血族】の混血、ランク「サファイア」以上</li>
+<li>戦闘中、自分がダメージを与えて誰かの「生命力」を0にした時、減少した相手の「生命力」分、自分の「生命力」を回復できる。</li>
+<li>この「力」は1L経過しないと、再度発動できない。</li>
+</ul>
+<h2 id="%E4%B8%8D%E5%AE%9A%E3%81%AE%E8%BA%AB%E4%BD%93">不定の身体</h2>
+<ul>
+<li>修得条件：【魔の血族】の混血</li>
+<li>【素手】を【不定形武器】の扱いに変更する（「武器」の種類は【素手】から変更されない）。</li>
+</ul>
+<h2 id="%E4%BB%95%E8%BE%BC%E3%81%BF%E6%AD%A6%E8%A3%85">仕込み武装</h2>
+<ul>
+<li>修得条件：【無の血族】の混血</li>
+<li>【素手】を【射撃武器】の扱いに変更する（「武器」の種類は【素手】から変更されない）。</li>
+</ul>
+<h2 id="%E7%B2%BE%E5%AF%86%E5%B0%84%E6%92%83">精密射撃</h2>
+<ul>
+<li>修得条件：【無の血族】の混血</li>
+<li>【射撃武器】を使用して攻撃を行う時、間合の距離による命中判定の修正が加わらない。</li>
+</ul>
+<h2 id="%E7%A5%9E%E8%81%96%E3%81%AA%E3%82%8B%E5%8A%9B">神聖なる力</h2>
+<ul>
+<li>修得条件：【神の血族】の混血</li>
+<li>【素手】を【魔法触媒】の扱いに変更する（「武器」の種類は【素手】から変更されない）。</li>
+</ul>
+<h2 id="%E6%95%91%E5%91%BD">救命</h2>
+<ul>
+<li>修得条件：【神の血族】の混血</li>
+<li>戦闘中、誰かが「行動不能」になった時、＜奉仕＞の技能で判定を行い、判定に成功すると、そのキャラクターの「生命力」を１だけ回復する。</li>
+<li>この判定は1L経過しないと、再度行う事ができない。</li>
+</ul>
+<h1 id="%E7%9F%A5%E6%81%B5">「知恵」</h1>
+<p>主に判定などに関する能力です。主に所属している「勢力」によって修得出来ないものが存在します。</p>
+<h2 id="%E7%86%9F%E9%81%94%E2%80%BB">熟達※</h2>
+<ul>
+<li>修得条件：ランク「アンバー」以上</li>
+<li>この「知恵」を修得した時、技能を一つ選ぶ。</li>
+<li>その技能を使用する時、探索フェイズの「ドラマシーン」中+1の修正を加える。</li>
+</ul>
+<h2 id="%E7%94%9F%E6%B4%BB%E3%81%AE%E7%9F%A5%E6%81%B5">生活の知恵</h2>
+<ul>
+<li>修得条件：【果て無き旅団】に所属</li>
+<li>「汎用」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E4%BB%99%E4%BA%BA">仙人</h2>
+<ul>
+<li>修得条件：【果て無き旅団】に所属</li>
+<li>「魔法」を使用する時、指定特技が「汎用」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E5%90%8D%E6%8E%A2%E5%81%B5">名探偵</h2>
+<ul>
+<li>修得条件：【果て無き旅団】に所属</li>
+<li>＜直感＞の技能を修得していると、探索フェイズ中、他PCに情報判定を行った時【情報】の代わりに、そのPCの【想い】を知ることができる。</li>
+</ul>
+<h2 id="%E5%86%85%E9%80%9A%E8%80%85">内通者</h2>
+<ul>
+<li>修得条件：【果て無き旅団】に所属、ランク「エメラルド」以上</li>
+<li>＜直感＞の技能を修得していると、探索フェイズ中、他PCに情報判定を行った時、判定を行わずに成功したことにできる（「スペシャル」にはならない）。</li>
+</ul>
+<h2 id="%E6%A3%AE%E3%81%AE%E4%BD%8F%E4%BA%BA">森の住人</h2>
+<ul>
+<li>修得条件：【白銀の森】に所属</li>
+<li>「野生」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E8%BA%8D%E5%8B%95">躍動</h2>
+<ul>
+<li>修得条件：【白銀の森】に所属</li>
+<li>「スキル」を使用する時、指定特技が「野生」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E7%8B%A9%E4%BA%BA">狩人</h2>
+<ul>
+<li>修得条件：【白銀の森】に所属</li>
+<li>＜奇襲＞の技能判定を行って戦闘を仕掛ける時、判定を行わずに成功したことにできる（「スペシャル」にはならない）。</li>
+</ul>
+<h2 id="%E7%8A%AF%E7%BD%AA%E8%80%85">犯罪者</h2>
+<ul>
+<li>修得条件：【闇に蠢く者】に所属</li>
+<li>「悪行」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E5%A5%87%E8%A1%93%E5%B8%AB">奇術師</h2>
+<ul>
+<li>修得条件：【闇に蠢く者】に所属</li>
+<li>「スキル」を使用する時、指定特技が「悪行」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E7%9B%97%E8%B3%8A">盗賊</h2>
+<ul>
+<li>修得条件：【闇に蠢く者】に所属</li>
+<li>＜窃盗＞の技能を修得していると、戦闘の勝利者になった時、戦利品に「アイテム」を選択できるようになる。</li>
+</ul>
+<h2 id="%E5%AD%A6%E5%BE%92">学徒</h2>
+<ul>
+<li>修得条件：【ワールドウィッチアカデミー】に所属</li>
+<li>「学問」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E4%BA%88%E7%BF%92">予習</h2>
+<ul>
+<li>修得条件：【ワールドウィッチアカデミー】に所属</li>
+<li>「魔法」を使用する時、指定特技が「学問」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E8%96%AC%E3%81%AE%E8%AA%BF%E5%90%88">薬の調合</h2>
+<ul>
+<li>修得条件：【ワールドウィッチアカデミー】に所属</li>
+<li>＜薬学＞の技能を修得していると、「回復薬」を使用する時、回復量が2D6になる。</li>
+</ul>
+<h2 id="%E7%A0%94%E7%A9%B6%E8%80%85">研究者</h2>
+<ul>
+<li>修得条件：【ワールドウィッチアカデミー】に所属、ランク「トパーズ」以上</li>
+<li>この「知恵」を修得した時、「切り札」の効果を一種類選択する。</li>
+<li>選択した効果の「切り札」に妨害判定を行う時、+2の修正を加える。</li>
+<li>選択した効果の「切り札」に認識判定を行う時、、判定を行わずに成功したことにできる（「スペシャル」にはならない）。</li>
+</ul>
+<h2 id="%E5%86%85%E8%94%B5%E5%9B%9E%E8%B7%AF">内蔵回路</h2>
+<ul>
+<li>修得条件：【鋼鉄の騎士団】に所属</li>
+<li>「機械」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E8%BF%BD%E5%8A%A0%E3%83%A1%E3%83%A2%E3%83%AA">追加メモリ</h2>
+<ul>
+<li>修得条件：【鋼鉄の騎士団】に所属</li>
+<li>「スキル」を使用する時、指定特技が「機械」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E3%83%AC%E3%83%BC%E3%83%80%E3%83%BC">レーダー</h2>
+<ul>
+<li>修得条件：【鋼鉄の騎士団】に所属</li>
+<li>＜索敵＞の技能判定を行って戦闘に乱入する時、判定を行わずに成功したことにできる（「スペシャル」にはならない）。</li>
+</ul>
+<h2 id="%E7%A5%9E%E3%81%AE%E6%95%99%E3%81%88">神の教え</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属</li>
+<li>「信仰」のカテゴリの技能を使用する時、+1の修正を加える。</li>
+</ul>
+<h2 id="%E7%B5%8C%E5%85%B8">経典</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属</li>
+<li>「魔法」を使用する時、指定特技が「信仰」のカテゴリの技能なら、使用するのに必要なコストが１減少する。</li>
+</ul>
+<h2 id="%E7%8C%AE%E8%BA%AB">献身</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属</li>
+<li>回復判定、又は復活判定を行う時、判定を2D6ではなく3D6で行う。</li>
+</ul>
+<h2 id="%E5%AF%A9%E5%95%8F%E5%AE%98">審問官</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属、ランク「アンバー」以上</li>
+<li>＜洗脳＞の技能を修得していると、探索フェイズ中、他PCに情報判定を行った時【情報】の代わりに、そのPCの【想い】を知ることができる。</li>
+</ul>
+<h2 id="%E7%B2%9B%E6%B8%85%E5%AE%98">粛清官</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属、ランク「トパーズ」以上</li>
+<li>戦闘中、自分の攻撃に対して目標が≪回避≫を行なえない場合、命中判定に+1D追加する。</li>
+</ul>
+<h1 id="%E5%BF%83">「心」</h1>
+<p>全般的に効果を及ぼす能力です。主にセッション中の行動などにより修得出来るものが存在します。</p>
+<h2 id="%E7%94%9F%E5%AD%98%E6%9C%AC%E8%83%BD">生存本能</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>「生命力」に10追加。</li>
+</ul>
+<h2 id="%E8%87%86%E7%97%85%E8%80%85">臆病者</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>＜奇襲＞の技能判定を行って戦闘を仕掛けられた時、＜潜伏＞の技能判定に成功すると、その「バトルシーン」に参加しなくてもよい（この時、敗者にはならない）。</li>
+</ul>
+<h2 id="%E4%B8%8B%E5%89%8B%E4%B8%8A">下剋上</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>自分よりレベル、又はランクが上のPC一人以上に戦闘で勝利すると、「報酬p」に追加で2獲得できる（レベルとランクの両方が上だった場合、更に追加で1獲得できる）。</li>
+</ul>
+<h2 id="%E5%8F%AF%E8%83%BD%E6%80%A7">可能性</h2>
+<ul>
+<li>修得条件：「混血」ではない</li>
+<li>レベルが上昇して「生命力」と「センス」の上昇を行う時、1D6の出目が気に入らなかった場合、それぞれ一回だけ振り直して、上昇値をその出目に変更することができる。</li>
+</ul>
+<h2 id="%E4%BB%B2%E9%96%93%E6%83%B3%E3%81%84">仲間想い</h2>
+<ul>
+<li>修得条件：誰かの【想い】を知った事がある</li>
+<li>自分が【想い】を知っている相手が何らかの判定を行う時、その判定に+1の修正を加える。</li>
+<li>この修正は1L経過しないと、再度行う事ができない。</li>
+</ul>
+<h2 id="%E7%95%B0%E6%96%87%E5%8C%96">異文化</h2>
+<ul>
+<li>修得条件：勢力の変更を行ったことがある</li>
+<li>所属したことのある勢力を記録しておく。</li>
+<li>「特定の勢力に所属」が修得条件にある「知恵」を、一つだけ修得できる。</li>
+<li>修得できるのは、自分が所属したことのある勢力のみ。</li>
+<li>修得条件にランクが一緒に指定されているものは修得できない。</li>
+</ul>
+<h2 id="%E3%83%9E%E3%82%BE%E3%83%92%E3%82%B9%E3%83%88">マゾヒスト</h2>
+<ul>
+<li>修得条件：全ての「不調」を受けたことがある</li>
+<li>受けている「不調」の効果を反転させる。</li>
+</ul>
+<h2 id="%E3%82%B5%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88">サディスト</h2>
+<ul>
+<li>修得条件：誰かの「生命力」を0にしたことがある</li>
+<li>誰かに判定を行う時、そのキャラクターが受けている「不調」一種類につき、+1の修正を加える。</li>
+</ul>
+
+</body>
+</html>

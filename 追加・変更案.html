@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>追加・変更案.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="01%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E4%BD%9C%E6%88%90"><strong>01.キャラクター作成</strong></h1>
+<h1 id="1-%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E4%BD%9C%E6%88%90">1. キャラクター作成</h1>
+<p>かきくけこ</p>
+<h2 id="11-%E3%83%AC%E3%83%99%E3%83%AB">1.1. レベル</h2>
+<p>あいうえお</p>
+<h3 id="111-%E3%81%AA%E3%82%93%E3%81%8B%E3%81%93%E3%81%BE%E3%81%8B%E3%81%84%E3%81%93%E3%81%A8">1.1.1. なんかこまかいこと</h3>
+<p>さしすせそ</p>
+<p><a href="C:%5CUsers%5Cphixa/.vscode/extensions/bierner.markdown-preview-github-styles-0.1.4/base.css">css</a></p>
+<p>レベルはそのキャラクター自身の強さを表すものです。レベルを上昇させるのには、セッションを行い「経験p」と呼ばれるものを貯めて、貯めた「経験p」分レベルを上昇させます。</p>
+<p>レベルが上昇すると、「成長値」を獲得できます。獲得した「成長値」は「生命力」、「センス」、「技能数」に割り振ることができます。「成長値」の割り振りは、リスペックのタイミングで行います。</p>
+<p>レベルを上昇させるのに必要な「経験p」は「現在のレベル×10」、獲得できる「成長値」は「現在のレベル×2D3」となります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">現在のレベル</th>
+<th>｜</th>
+<th style="text-align:center">次のレベルに<BR>必要な「経験p」</th>
+<th>｜</th>
+<th style="text-align:center">このレベルに達した<BR>ときの成長値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>｜</td>
+<td style="text-align:center">10</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>｜</td>
+<td style="text-align:center">20</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>｜</td>
+<td style="text-align:center">30</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>｜</td>
+<td style="text-align:center">40</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td>｜</td>
+<td style="text-align:center">50</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td>｜</td>
+<td style="text-align:center">60</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td>｜</td>
+<td style="text-align:center">70</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td>｜</td>
+<td style="text-align:center">80</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td>｜</td>
+<td style="text-align:center">90</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td>｜</td>
+<td style="text-align:center">100</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+<tr>
+<td style="text-align:center">：</td>
+<td>｜</td>
+<td style="text-align:center">：</td>
+<td>｜</td>
+<td style="text-align:center">｜</td>
+</tr>
+</tbody>
+</table>
+<p>キャラクターの「生命力」が０になった場合、そのキャラクターは基本的には「行動不能」になります。ただし、シナリオの取り決めやGMの特殊な裁定があった場合はそれに従います。</p>
+<p>「生命力」と「センス」は「成長値」を１割り振るごとに、１上昇します。「技能数」は「成長値」を10割り振るごとに、技能を追加で一つ修得できるようになります。</p>
+<p>目標値を６として2D6で判定を行います</p>
+<p>また、それぞれ一定値以上上昇するたびに「成長判定」を行うことができます。「成長判定」では、目標値を６として2D6で判定を行います。判定に成功すると、上昇した能力に応じて「ポテンシャル」を修得可能な枠が増えます。どの能力がどれだけ上昇したときに、「ポテンシャル」のどれについて成長判定を行うかは、以下のルールに従います。</p>
+<ul>
+<li>「生命力」を上昇させて十の倍数に達した時、「力」について成長判定を行います。成長判定に成功すると、「力」の修得枠が一つ増えます。</li>
+<li>「センス」を上昇させて十の倍数に達した時、「知恵」について成長判定を行います。成長判定に成功すると、「知恵」の修得枠が一つ増えます。</li>
+<li>「技能数」を上昇させた時、「心」について成長判定を行います。成長判定に成功すると、「心」の修得枠が一つ増えます。</li>
+</ul>
+<p>成長判定に成功して獲得した「ポテンシャル」の修得枠は、
+リスペックのタイミングで使用することで、その修得枠と対応する「ポテンシャル」を獲得できます。
+例えば、「力」の修得枠は「力」に属する能力を修得するために使用できます
+（「力」の修得枠では「知恵」や「心」に属する能力は修得できません）。
+修得枠を獲得しても使用しなかった場合には、修得枠は増えたままとなり、
+次回以降のリスペックで使用することができます。</p>
+<h1 id="2-%E7%95%B0%E5%BD%A2">2. 【異形】</h1>
+<h2 id="21-%E5%A4%A9%E6%95%B5">2.1. 「天敵」</h2>
+<ul>
+<li>この【異形】を選択した時、自分が選択した【血族】以外の【血族】を一種類選ぶ。その【血族】が設定されているキャラクターが、このキャラクターに何らかの判定を行う時、+1の修正が加わる。</li>
+</ul>
+<p>あなたに流れている異形の血は、決して敵わない存在がいる。</p>
+<h2 id="22-%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%81%AA%E4%BD%93">2.2. 「不完全な体」</h2>
+<ul>
+<li>「生命力」が0未満になった時、【瀕死】にならずにそのまま【死亡】する。</li>
+</ul>
+<p>あなたに流れている異形の血は、元から流れていた物ではなく、後から無理矢理追加されたものだ。</p>
+<h1 id="3-%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0">3. アイテム</h1>
+<h2 id="31-%E8%BA%AB%E4%BB%A3%E3%82%8F%E3%82%8A%E4%BA%BA%E5%BD%A2">3.1. 「身代わり人形」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：12</li>
+<li>生存判定に失敗したタイミングで使用できる</li>
+<li>このアイテムを使用した時、失敗した生存判定を成功したことにできる。</li>
+<li>このアイテムは、一つしか所持できない。</li>
+</ul>
+<h2 id="32-%E9%9C%8A%E8%96%AC">3.2. 「霊薬」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：22</li>
+<li>任意のタイミングで使用できる</li>
+<li>このアイテムを使用した時、「不調」を全て消滅させるか、「生命力」を最大値まで回復させることができる。</li>
+</ul>
+<h2 id="33-%E7%A7%98%E8%96%AC">3.3. 「秘薬」</h2>
+<ul>
+<li>通常アイテム</li>
+<li>取得必要「報酬p」：33</li>
+<li>任意のタイミングで使用できる</li>
+<li>このアイテムを使用した時、「不調」を全て消滅させて、「生命力」を最大値まで回復させることができる。</li>
+</ul>
+<h1 id="02%E5%87%BA%E7%9B%AE%E3%81%A8%E5%88%A4%E5%AE%9A"><strong>02.出目と判定</strong></h1>
+<h3 id="331-%E5%88%A4%E5%AE%9A">3.3.1. <strong>判定</strong></h3>
+<ul>
+<li>技能判定</li>
+<li>情報判定</li>
+<li>命中判定</li>
+<li>回避判定</li>
+<li>回復判定</li>
+<li>対抗判定</li>
+<li>妨害判定</li>
+<li>認識判定</li>
+<li>復活判定</li>
+<li>生存判定</li>
+<li>成長判定</li>
+</ul>
+<h1 id="03%E6%8A%80%E8%83%BD%E4%B8%80%E8%A6%A7"><strong>03.技能一覧</strong></h1>
+<p>無し</p>
+<pre class="hljs"><code><div>                  ≪攻撃≫の目標の決定
+                        ｜
+              目標の≪回避≫の可否を確認
+                        ｜
+              ―――――――――――――――
+             ｜                     ｜
+          ≪回避≫可能            ≪回避≫不可
+             ｜                     ｜
+        目標の回避判定                 ｜
+             ｜                     ｜
+      ―――――――――――――          ｜
+     ｜                  ｜          ｜
+回避判定の成功      回避判定の失敗  
+</div></code></pre>
+<h1 id="04%E5%8A%9B%E3%83%BB%E7%9F%A5%E6%81%B5%E3%83%BB%E5%BF%83"><strong>04.力・知恵・心</strong></h1>
+<h1 id="4-%E5%8A%9B">4. 「力」</h1>
+<h2 id="41-%E3%82%B9%E3%83%88%E3%83%83%E3%82%AF%E2%80%BB">4.1. ストック※</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>この「力」を修得した時、「余剰コスト」を2追加する。</li>
+<li>この「力」を二つ以上修得した場合、二つ目からは「余剰コスト」を1追加する。</li>
+</ul>
+<h2 id="42-%E8%BF%BD%E5%8A%A0%E8%A3%85%E7%94%B2%E2%80%BB">4.2. 追加装甲※</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>「装甲」に5追加する。</li>
+</ul>
+<h2 id="43-%E8%87%AA%E7%84%B6%E5%9B%9E%E5%BE%A9">4.3. 自然回復</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>この「力」を修得したキャラクターは、探索フェイズ中、「生命力」が減少していると1L経過する度に、「生命力」を1D6回復できる。</li>
+</ul>
+<h2 id="44-%E8%B6%85%E5%9B%9E%E5%BE%A9">4.4. 超回復</h2>
+<ul>
+<li>修得条件：「力・自然回復」を修得、ランク「エメラルド」以上</li>
+<li>この「力」を修得したキャラクターは、「力・自然回復」で回復する「生命力」が、2D6になる。</li>
+</ul>
+<h2 id="45-%E7%B2%89%E7%A0%95">4.5. 粉砕</h2>
+<ul>
+<li>修得条件：ランク「トパーズ」以上</li>
+<li>攻撃系の「スキル」を使用してダメージを与える時、物理ダメージを2追加で与える。</li>
+</ul>
+<h2 id="46-%E7%8E%89%E7%A0%95">4.6. 玉砕</h2>
+<ul>
+<li>修得条件：「力・粉砕」を修得、ランク「エメラルド」以上</li>
+<li>攻撃系の「スキル」を使用してダメージを与える時、物理ダメージを3追加で与える。</li>
+</ul>
+<h2 id="47-%E5%89%B2%E7%A0%95">4.7. 割砕</h2>
+<ul>
+<li>修得条件：「力・玉砕」を修得、ランク「ラピス」以上</li>
+<li>攻撃系の「スキル」を使用してダメージを与える時、物理ダメージを5追加で与える。</li>
+</ul>
+<h2 id="48-%E9%AD%94%E7%9F%B3">4.8. 魔石</h2>
+<ul>
+<li>修得条件：ランク「トパーズ」以上</li>
+<li>攻撃系の「魔法」を使用してダメージを与える時、魔法ダメージを2追加で与える。</li>
+</ul>
+<h2 id="49-%E9%AD%94%E5%B0%8E%E6%9B%B8">4.9. 魔導書</h2>
+<ul>
+<li>修得条件：「力・魔石」を修得、ランク「エメラルド」以上</li>
+<li>攻撃系の「魔法」を使用してダメージを与える時、魔法ダメージを3追加で与える。</li>
+</ul>
+<h2 id="410-%E9%AD%94%E6%B3%95%E9%99%A3">4.10. 魔法陣</h2>
+<ul>
+<li>修得条件：「力・魔導書」を修得、ランク「ラピス」以上</li>
+<li>攻撃系の「魔法」を使用してダメージを与える時、魔法ダメージを5追加で与える。</li>
+</ul>
+<h2 id="411-%E7%B2%89%E9%AA%A8%E7%A0%95%E8%BA%AB">4.11. 粉骨砕身</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「覇道」の効果の「切り札」を使用した時、与える物理ダメージがD66+20になる。</li>
+</ul>
+<h2 id="412-%E4%B8%80%E7%9F%B3%E4%BA%8C%E9%B3%A5">4.12. 一石二鳥</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「覇道」の効果の「切り札」を使用した時、目標に指定できるキャラクターを、更にもう一人目標に指定できるようになる。</li>
+</ul>
+<h2 id="413-%E5%9C%B0%E7%8D%84%E7%B5%B5%E5%9B%B3">4.13. 地獄絵図</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「無双」の効果の「切り札」を使用した時、与える魔法ダメージが3D6+20になる。</li>
+</ul>
+<h2 id="414-%E4%B8%89%E5%8D%83%E4%B8%96%E7%95%8C">4.14. 三千世界</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「無双」の効果の「切り札」を使用した時、任意で選ぶことのできる間合が三つになる。</li>
+</ul>
+<h2 id="415-%E9%9B%A3%E6%94%BB%E4%B8%8D%E8%90%BD">4.15. 難攻不落</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「加護」の効果の「切り札」を使用した時、減少させることができるダメージがD66+20になる。</li>
+</ul>
+<h2 id="416-%E7%84%A1%E7%97%85%E6%81%AF%E7%81%BD">4.16. 無病息災</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「加護」の効果の「切り札」を使用した時、目標の受けている「不調」を全て消滅させる効果が追加される。</li>
+</ul>
+<h2 id="417-%E5%A4%89%E5%B9%BB%E8%87%AA%E5%9C%A8">4.17. 変幻自在</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「全力」の効果の「切り札」を使用した時、変更できるダイスの出目を任意で決定できるようになる。</li>
+</ul>
+<h2 id="418-%E4%B8%83%E8%BB%A2%E5%85%AB%E8%B5%B7">4.18. 七転八起</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「全力」の効果の「切り札」を使用した時、達成値にあらゆるマイナスの修正が加わらない。</li>
+</ul>
+<h2 id="419-%E4%B8%83%E8%BB%A2%E5%85%AB%E5%80%92">4.19. 七転八倒</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「外法」の効果の「切り札」を使用した時、目標の達成値にあらゆる修正が加わらない。</li>
+</ul>
+<h2 id="420-%E5%8F%96%E6%8D%A8%E9%81%B8%E6%8A%9E">4.20. 取捨選択</h2>
+<ul>
+<li>修得条件：、ランク「サファイア」以上</li>
+<li>「外法」の効果の「切り札」を使用した時、使用しなかったことにしたダイスの出目を、次に自分が判定を行う時にプラスの修正として加える。</li>
+</ul>
+<h2 id="421-%E6%A5%B5%E5%9C%B0%E9%81%A9%E5%BF%9C">4.21. 極地適応</h2>
+<ul>
+<li>修得条件：【古の血族】の混血</li>
+<li>＜器用＞の技能を修得していると、「烈火」と「吹雪」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けない。</li>
+</ul>
+<h2 id="422-%E7%B8%84%E5%BC%B5%E3%82%8A">4.22. 縄張り</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>＜潜伏＞の技能を修得していると、「森林」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けなくなる。</li>
+</ul>
+<h2 id="423-%E5%88%B6%E7%A9%BA%E6%A8%A9">4.23. 制空権</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>＜飛行＞の技能を修得していると、「天空」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けなくなる。</li>
+</ul>
+<h2 id="424-%E9%A0%98%E6%B5%B7">4.24. 領海</h2>
+<ul>
+<li>修得条件：【獣の血族】の混血</li>
+<li>＜水泳＞の技能を修得していると、「水辺」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けなくなる。</li>
+</ul>
+<h2 id="425-%E5%BF%83%E9%9C%8A%E7%8F%BE%E8%B1%A1">4.25. 心霊現象</h2>
+<ul>
+<li>修得条件：【死の血族】の混血</li>
+<li>この「力」を修得したキャラクターを目標に指定する攻撃は、命中判定に-1の修正が加わる。</li>
+</ul>
+<h2 id="426-%E5%A2%93%E5%AE%88">4.26. 墓守</h2>
+<ul>
+<li>修得条件：【死の血族】の混血</li>
+<li>＜変装＞の技能を修得していると、「閉所」の「フィールド」では、あらゆる判定に+1の修正が加わり、属性の「デバフ」の効果を受けなくなる。</li>
+</ul>
+<h2 id="427-%E5%86%A5%E5%BA%9C">4.27. 冥府</h2>
+<ul>
+<li>修得条件：【死の血族】の混血</li>
+<li>＜演技＞の技能を修得していると、「濃霧」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けなくなる。</li>
+</ul>
+<h2 id="428-%E5%85%8D%E7%96%AB">4.28. 免疫</h2>
+<ul>
+<li>修得条件：【魔の血族】の混血</li>
+<li>この「力」を修得した時、「不調」を一つ選ぶ。</li>
+<li>この「力」を修得したキャラクターは、その「不調」の効果を受けない（「不調」自体は累積する）。</li>
+</ul>
+<h2 id="429-%E5%A5%BD%E6%88%A6%E4%B8%BB%E7%BE%A9">4.29. 好戦主義</h2>
+<ul>
+<li>修得条件：【魔の血族】の混血</li>
+<li>探索フェイズ中のバトルシーンで「戦意」を決定する時、1D6ではなく2D6を行う。</li>
+</ul>
+<h2 id="430-%E9%AD%94%E7%95%8C">4.30. 魔界</h2>
+<ul>
+<li>修得条件：【魔の血族】の混血</li>
+<li>＜地理＞の技能を修得していると、「凍土」の「フィールド」では、あらゆる判定に+1の修正が加わり、属性の「デバフ」の効果を受けなくなる。</li>
+</ul>
+<h2 id="431-%E3%83%90%E3%83%A9%E3%83%B3%E3%82%B5%E3%83%BC">4.31. バランサー</h2>
+<ul>
+<li>修得条件：【無の血族】の混血</li>
+<li>＜操縦＞の技能を修得していると、「嵐」の「フィールド」では、あらゆる判定に+1の修正が加わり、「フィールド」の特殊効果を受けなくなる。</li>
+</ul>
+<h2 id="432-%E5%8F%8E%E7%B4%8D%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9">4.32. 収納スペース</h2>
+<ul>
+<li>修得条件：【無の血族】の混血</li>
+<li>セッションの開始時に、「アイテム」を追加で二つ持ち込める。</li>
+</ul>
+<h2 id="433-%E5%B9%B3%E5%92%8C%E4%B8%BB%E7%BE%A9">4.33. 平和主義</h2>
+<ul>
+<li>修得条件：【神の血族】の混血</li>
+<li>探索フェイズ中のバトルシーンで「戦意」を決定する時、ダイスを使用せず0になる。</li>
+</ul>
+<h2 id="434-%E5%A4%A9%E6%81%B5">4.34. 天恵</h2>
+<ul>
+<li>修得条件：【神の血族】の混血</li>
+<li>＜礼法＞の技能を修得していると、「虹」の「フィールド」では、あらゆる判定に+1の修正が加わり、「余剰コスト」が5追加される。</li>
+</ul>
+<h2 id="435-%E5%A5%87%E8%B7%A1">4.35. 奇跡</h2>
+<ul>
+<li>修得条件：【神の血族】の混血</li>
+<li>この「力」を修得したキャラクターの攻撃の命中判定が「スペシャル」だった時、回避判定で「スペシャル」を出さないと≪回避≫できない。</li>
+</ul>
+<h2 id="436-%E8%81%96%E5%9F%9F">4.36. 聖域</h2>
+<ul>
+<li>修得条件：【神の血族】の混血、ランク「エメラルド」以上</li>
+<li>「得意領域」の間合にいる時、他の間合から攻撃の目標に指定されない。</li>
+</ul>
+<h1 id="5-%E7%9F%A5%E6%81%B5">5. 「知恵」</h1>
+<h2 id="51-%E6%9C%80%E9%81%A9%E5%8C%96%E2%80%BB">5.1. 最適化※</h2>
+<ul>
+<li>修得条件：ランク「ラピス」以上</li>
+<li>この「知恵」を修得した時、技能のカテゴリを一つ選ぶ。</li>
+<li>そのカテゴリの技能を使用して技能の代用をする時、判定に+1の修正を加える。</li>
+</ul>
+<h2 id="52-%E7%9C%9F%E9%AB%84%E2%80%BB">5.2. 真髄※</h2>
+<ul>
+<li>修得条件：ランク「エメラルド」以上</li>
+<li>この「知恵」を修得した時、「技能表」のA～Fの中から好きなものを一つ選ぶ。</li>
+<li>技能の代用を行う時、「技能表」の選択したA～Fの列の、「空白のマス」を一マスと数えなくてもよい。</li>
+</ul>
+<h2 id="53-%E3%82%B8%E3%83%A7%E3%83%BC%E3%82%AB%E3%83%BC">5.3. ジョーカー</h2>
+<ul>
+<li>修得条件：「力・奥の手」を修得、ランク「ラピス」以上</li>
+<li>この「知恵」を修得した時、技能を一つ選ぶ。</li>
+<li>この「知恵」を修得したキャラクターの使用する「切り札」に認識判定を行う時、＜分析＞ではなく、選んだ技能で認識判定を行わなければならない。</li>
+</ul>
+<h2 id="54-%E3%83%8D%E3%82%AF%E3%83%AD%E3%83%9E%E3%83%B3%E3%82%B5%E3%83%BC">5.4. ネクロマンサー</h2>
+<ul>
+<li>修得条件：【ワールドウィッチアカデミー】に所属、ランク「アンバー」以上</li>
+<li>【死亡】したキャラクターに対して、＜生物学＞の技能で判定を行う事ができる。</li>
+<li>判定に成功すると、【死亡】したキャラクターを「行動不能」の状態にし蘇生できる。</li>
+<li>この「知恵」の判定で蘇生したキャラクターは、【死の血族】になり、【異形・不完全な体】を追加する。又、「生命力」と「センス」、修得できる技能の数が半分になる。</li>
+<li>この「知恵」の判定は、「混血」のキャラクターには行えない。</li>
+<li>この判定は、一回のセッションで一度しか行う事ができない</li>
+</ul>
+<h2 id="55-%E8%A3%9C%E7%B5%A6%E7%B7%9A">5.5. 補給線</h2>
+<ul>
+<li>修得条件：【鋼鉄の騎士団】に所属</li>
+<li>＜暗号＞の技能を修得していると、探索フェイズ中に一度だけ、そのセッション中に使用した「アイテム」を獲得できる（この「知恵」で獲得した「アイテム」は、セッションの終了時に消滅する）。</li>
+</ul>
+<h2 id="56-%E6%94%B9%E9%80%A0%E6%89%8B%E8%A1%93">5.6. 改造手術</h2>
+<ul>
+<li>修得条件：【鋼鉄の騎士団】に所属、ランク「アンバー」以上</li>
+<li>【死亡】したキャラクターに対して、＜工作＞の技能で判定を行う事ができる。</li>
+<li>判定に成功すると、【死亡】したキャラクターを「行動不能」の状態にし蘇生できる。</li>
+<li>この「知恵」の判定で蘇生したキャラクターは、【無の血族】になり、【異形・不完全な体】を追加する。又、「生命力」と「センス」、修得できる技能の数が半分になる。</li>
+<li>この「知恵」の判定は、「混血」のキャラクターには行えない。</li>
+<li>この判定は、一回のセッションで一度しか行う事ができない</li>
+</ul>
+<h2 id="57-%E6%AD%BB%E8%80%85%E8%98%87%E7%94%9F">5.7. 死者蘇生</h2>
+<ul>
+<li>修得条件：【八百万信仰協会】に所属、ランク「アンバー」以上</li>
+<li>【死亡】したキャラクターに対して、＜舞踊＞の技能で判定を行う事ができる。</li>
+<li>判定に成功すると、【死亡】したキャラクターを「行動不能」の状態にし蘇生できる。</li>
+<li>この「知恵」の判定で蘇生したキャラクターは、「生命力」と「センス」、修得できる技能の数が半分になる。</li>
+<li>この判定は、一回のセッションで一度しか行う事ができない</li>
+</ul>
+<h1 id="6-%E5%BF%83">6. 「心」</h1>
+<h2 id="61-%E5%8F%AF%E8%83%BD%E6%80%A7">6.1. 可能性</h2>
+<ul>
+<li>修得条件：「混血」ではない</li>
+<li>成長判定に失敗した時、もう一度だけ、成長判定を行う事ができる。</li>
+</ul>
+<h2 id="62-%E7%94%9F%E5%AD%98%E9%A1%98%E6%9C%9B">6.2. 生存願望</h2>
+<ul>
+<li>修得条件：無し</li>
+<li>生存判定を3D6で行う事ができる。</li>
+</ul>
+<h2 id="63-%E4%B9%9D%E6%AD%BB%E3%81%AB%E4%B8%80%E7%94%9F">6.3. 九死に一生</h2>
+<ul>
+<li>修得条件：生存判定を行ったことがある</li>
+<li>生存判定に失敗した時、もう一度だけ、生存判定を行う事ができる。</li>
+</ul>
+<h2 id="64-%E5%8F%97%E3%81%91%E7%B6%99%E3%81%8C%E3%82%8C%E3%81%9F%E6%84%8F%E6%80%9D">6.4. 受け継がれた意思</h2>
+<ul>
+<li>修得条件：「遺品」を受け取った事がある</li>
+<li>「想いを達成」で得られる「報酬p」が二倍になる。</li>
+</ul>
+<h1 id="05%E3%82%B9%E3%82%AD%E3%83%AB%E3%83%BB%E9%AD%94%E6%B3%95"><strong>05.スキル・魔法</strong></h1>
+<h1 id="7-%E3%82%B9%E3%82%AD%E3%83%AB">7. スキル</h1>
+<h2 id="71-%E9%A2%A8%E8%BB%8A">7.1. 風車</h2>
+<ul>
+<li>種類：サポート</li>
+<li>指定技能：＜舞踊＞</li>
+<li>属性：風</li>
+<li>コスト：4</li>
+<li>射程：無し
+<ul>
+<li>戦闘中、「間合と速度の公開」時に使用可能。</li>
+<li>この「スキル」の判定の達成値が奇数だった場合、全てのキャラクターが現在の間合の右の間合に一つ移動する。偶数だった場合、全てのキャラクターが現在の間合の左の間合に一つ移動する。</li>
+<li>「フィールド」が「嵐」だった場合、移動する間合が更に一つ追加される。</li>
+</ul>
+</li>
+</ul>
+<h2 id="72-%E4%BB%95%E8%BE%BC%E3%81%BF">7.2. 仕込み</h2>
+<ul>
+<li>種類：サポート</li>
+<li>指定技能：＜隠蔽＞</li>
+<li>属性：水</li>
+<li>コスト：4</li>
+<li>射程：無し
+<ul>
+<li>誰かが「回復薬」を使用して「生命力」を回復した時に使用可能。</li>
+<li>「回復薬」の効果を無効化し、回復量と同じだけ「猛毒」の「不調」を与える。</li>
+</ul>
+</li>
+</ul>
+<h1 id="06%E6%AD%A6%E5%99%A8%E7%A8%AE"><strong>06.武器種</strong></h1>
+<p>無し</p>
+<h1 id="07%E5%88%87%E3%82%8A%E6%9C%AD"><strong>07.切り札</strong></h1>
+<h1 id="8-%E7%99%BA%E5%8B%95%E6%9D%A1%E4%BB%B6">8. 発動条件</h1>
+<h2 id="81-%E4%B8%87%E5%85%A8">8.1. 「万全」</h2>
+<ul>
+<li>「生命力」が最大値の半分以上じゃないと使用できない。</li>
+</ul>
+<h2 id="82-%E6%9C%80%E5%BE%8C%E3%81%AE%E6%89%8B%E6%AE%B5">8.2. 「最後の手段」</h2>
+<ul>
+<li>クライマックスフェイズにならないと使用できない。</li>
+</ul>
+<h1 id="08%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3"><strong>08.セッション</strong></h1>
+<h1 id="9-%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E5%89%8D%E3%81%AB">9. セッションを始める前に</h1>
+<p>セッションを開始する前に、セッションに参加するプレイヤーにその「シナリオの形式」と「シナリオの特殊ルール」、またそのシナリオのギミックでキャラクターが「死亡」する可能性がある場合など、これらの事を必ず告知してください。</p>
+<p>↓</p>
+<p>セッションを開始する前に、セッションに参加するプレイヤーにその「シナリオの形式」と「シナリオの特殊ルール」などを、必ず告知してください。</p>
+<h1 id="09%E6%88%A6%E9%97%98%E3%81%AE%E5%87%A6%E7%90%86"><strong>09.戦闘の処理</strong></h1>
+<h1 id="10-%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%81%AE%E6%AD%BB%E4%BA%A1">10. キャラクターの死亡</h1>
+<p>クライマックスフェイズの戦闘中では、キャラクターの「生命力」が減少した時、減少値が現在の「生命力」を上回ると、「生命力」が0未満になります。「生命力」が0未満になったキャラクターは＜医学＞の技能で回復判定を行う。この判定で「生命力」0以上にならなかった場合、「行動不能」ではなく【瀕死】の状態になります。</p>
+<p>【瀕死】になったキャラクターは「バトルシーン」の終了時に、他のPCから復活判定を受けることができます（【瀕死】のキャラクターに対して、一人一回行えます）。復活判定が一人でも成功すると、キャラクターの「生命力」が0になり【瀕死】から「行動不能」の状態になります。全員の復活判定が失敗すると、【瀕死】のキャラクターは＜記憶＞の技能で判定を行います。この判定を「生存判定」と呼びます。</p>
+<p>生存判定に成功すると、キャラクターの「生命力」が0になり【瀕死】から「行動不能」の状態になります。生存判定に失敗した場合、そのキャラクターは【瀕死】から【死亡】の状態になります。</p>
+<p>また、「バトルシーン」中に自分のキャラクターが【瀕死】になった時、プレイヤーが望んだ場合、プレイヤーは【瀕死】になった自分のキャラクターを【死亡】した扱いにできます。</p>
+<p>「死亡」したキャラクターは、以降、他のセッションで使用できなくなります。</p>
+<p>戦闘中にキャラクターを【死亡】させた場合、以下の行動を取ることができます。</p>
+<h1 id="10%E6%AD%A6%E5%99%A8%E6%94%B9%E9%80%A0"><strong>10.武器改造</strong></h1>
+<h1 id="11-%E5%BC%B7%E5%8C%96">11. 強化</h1>
+<h2 id="111-%E9%8C%AC%E6%88%90">11.1. 錬成</h2>
+<ul>
+<li>設定できる武器：全ての「武器」</li>
+<li>この「強化」が設定された「武器」は、威力に+1D追加される。</li>
+</ul>
+<h2 id="112-%E8%BB%BD%E9%87%8F%E5%8C%96">11.2. 軽量化</h2>
+<ul>
+<li>設定できる武器：【近接武器】</li>
+<li>命中判定に加わる修正が+1D6になる。</li>
+</ul>
+<h2 id="113-%E5%BB%B6%E9%95%B7">11.3. 延長</h2>
+<ul>
+<li>設定できる武器：【近接武器】、【暗殺武器】</li>
+<li>【近接武器】の射程が5以内になる。</li>
+<li>【暗殺武器】の射程が2以内になる。</li>
+</ul>
+<h1 id="12-%E6%AC%A0%E9%99%A5">12. 欠陥</h1>
+<h2 id="121-%E5%88%A9%E3%81%8D%E6%89%8B">12.1. 利き手</h2>
+<ul>
+<li>右か左のどちらかを選択する。</li>
+<li>この「欠陥」が設定されている「武器」は、選択した方向にしか、射程を伸ばす事ができない。</li>
+</ul>
+
+</body>
+</html>
